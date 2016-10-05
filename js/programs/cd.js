@@ -9,6 +9,7 @@ function cd(args) {
             updateDirectoryString();
             return;
     }
+    let done = false;
     directories = directoryTarget.split("/"); //Array of directories we will look through
     if (directories.length == 1) { //There is only one directory, and it's presumably in the current directory
         if (currentFolder[directoryTarget]) {
@@ -26,25 +27,30 @@ function cd(args) {
             let newDirStack = [];
             directories.shift(); //Move over to get rid of the empty element caused by starting with /
             directories.forEach(function(element) {
-                if (currentFolder[element]) {
-                    currentFolder = currentFolder[element];
-                    newDirStack.push(element);
-                } else { //Folder not found
-                    addLine(args[0] + "is not a valid path.");
-                    updateDirectoryString();
+                if (!done) {
+                    if (currentFolder[element]) {
+                        currentFolder = currentFolder[element];
+                        newDirStack.push(element);
+                    } else { //Folder not found
+                        addLine(args[0] + "is not a valid path.");
+                        updateDirectoryString();
+                        done = true;
+                    }
                 }
             }, this);
             directoryStack = newDirStack;
             updateDirectoryString();
         } else { //Start at current directory for lookup
             directories.forEach(function(element) {
-                if (currentFolder[element]) {
-                    currentFolder = currentFolder[element];
-                    moveIntoDirectory(element);
-                } else { //Folder not found
-                    addLine(args[0] + " is not a valid path.");
-                    updateDirectoryString();
-                    return;
+                if(!done) {
+                    if (currentFolder[element]) {
+                        currentFolder = currentFolder[element];
+                        moveIntoDirectory(element);
+                    } else { //Folder not found
+                        addLine(args[0] + " is not a valid path.");
+                        updateDirectoryString();
+                        done = true;
+                    }
                 }
             }, this);
             updateDirectoryString();
