@@ -15,6 +15,7 @@ function addLine(input) {
     let newNode = document.createElement("p");
     newNode.innerHTML = input;
     outputParent.appendChild(newNode);
+    window.scrollTo(0,document.body.scrollHeight);
 }
 
 /*
