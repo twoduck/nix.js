@@ -1,7 +1,7 @@
 /*
  * Adds the command to the history with the directory and username.
  */
-function enter(input) {
+function saveCommand(input) {
     let line = directoryString + " " + username + "$ " + input;
     addLine(line);
 }
