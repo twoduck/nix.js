@@ -31,7 +31,11 @@ input, p {
     display: flex;
 }
 
+#input-prefix {
+    white-space: nowrap;
+    overflow: visible;
+}
+
 #input-text {
     width: 100%;
-    padding-left: 1em;
 }
