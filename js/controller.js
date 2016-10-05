@@ -1,5 +1,5 @@
-document.getElementById("input").onkeydown = function (event) {
-    var input = document.getElementById("input");
+document.getElementById("input-text").onkeydown = function (event) {
+    var input = document.getElementById("input-text");
     switch (event.keyCode) {
     case 13:
         enter(input.value);
