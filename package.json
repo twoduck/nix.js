@@ -1,0 +1,24 @@
+{
+  "name": "js-terminal",
+  "version": "0.0.1",
+  "description": "A pseudo-terminal written in JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scottmangiapane/js-terminal.git"
+  },
+  "keywords": [
+    "js",
+    "JavaScript",
+    "Terminal"
+  ],
+  "author": "Meegul304 & scottmangiapane",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/scottmangiapane/js-terminal/issues"
+  },
+  "homepage": "https://github.com/scottmangiapane/js-terminal#readme"
+}
