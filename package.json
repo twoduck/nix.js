@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/scottmangiapane/js-terminal/issues"
   },
-  "homepage": "https://github.com/scottmangiapane/js-terminal#readme"
+  "homepage": "https://github.com/scottmangiapane/js-terminal#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }

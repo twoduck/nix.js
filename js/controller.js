@@ -17,10 +17,10 @@ document.getElementById("input-text").onkeydown = function (event) {
         input.value = ""; //reset the input
         break;
     case 38:
-        upKey(input);
+        //upKey(input);
         break;
     case 40:
-        downKey(input);
+        //downKey(input);
         break;
     }
 };
