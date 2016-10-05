@@ -1,5 +1,6 @@
 function enter(input) {
-    addLine(input);
+    let line = directoryString + " " + username + "$ " + input;
+    addLine(line);
 }
 
 function addLine(input) {
