@@ -58,6 +58,10 @@ input {
     -webkit-transform: translate(-50%, -50%);
 }
 
+#output {
+    word-wrap: break-word;
+}
+
 #input-container {
     width: 100%;
     display: flex;
