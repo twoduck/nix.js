@@ -31,5 +31,5 @@ function parse(input) {
     if(typeof fn === 'function') {
         parts.shift();
         fn(parts);
-    }
+    } else addLine("-bash: " + parts[0] + ": command not found");
 }
