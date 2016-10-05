@@ -21,6 +21,6 @@ function addLine(input) {
  * Updates the input-prefix in the view with current info.
  */
 function updatePrefix() {
-    result = directoryString + " " + username + "$ ";
+    result = directoryString + " " + username + "$&nbsp";
     document.getElementById("input-prefix").innerHTML = result;
 }
