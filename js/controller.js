@@ -26,8 +26,6 @@ document.getElementById("input-text").onkeydown = function (event) {
 };
 
 function parse(input) {
-    //TODO:
-    //parse for commands, flags, etc.
     parts = input.split(" ");
     let fn = window[parts[0]];
     if(typeof fn === 'function') {
