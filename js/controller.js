@@ -1,3 +1,13 @@
+/*
+ * Ensures that the user is always focused on the input text.
+ */
+document.onclick = function () {
+    document.getElementById("input-text").focus();
+};
+
+/*
+ * Controls what happens on each keypress in the input box.
+ */
 document.getElementById("input-text").onkeydown = function (event) {
     var input = document.getElementById("input-text");
     switch (event.keyCode) {
