@@ -1,9 +1,37 @@
+a, input, h1, h2, h3, h4, h5, h6, p {
+    color: #ddd;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+a {
+    color: limegreen;
+    font-size: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 body {
     padding: 16px;
 }
 
 body, html, main {
     background-color: #282828;
+}
+
+br {
+    height: 1em;
+    font-size: inherit;
+}
+
+input, p {
+    font-size: 14px;
 }
 
 input {
@@ -16,14 +44,18 @@ input {
     outline: none;
 }
 
-input, p {
-    color: #ddd;
-    font-family: 'Source Code Pro', monospace;
-    font-size: 14px;
-    font-weight: 700;
-    -webkit-font-smoothing: antialiased;
-    margin: 0;
-    padding: 0;
+.align-center {
+    text-align: center;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
 }
 
 #input-container {
