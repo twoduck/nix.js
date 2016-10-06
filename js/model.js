@@ -2,7 +2,6 @@ var directoryStack = [];
 var directoryString = "/";
 var username = "root";
 var fileStructure = new Object();
-var cookieNames = new Object();
 
 
 function updateDirectoryString() {
