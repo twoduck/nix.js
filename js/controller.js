@@ -1,3 +1,5 @@
+var commandQueue = [];
+
 /*
  * Ensures that the user is always focused on the input text.
  */
@@ -26,14 +28,17 @@ document.getElementById("input-text").onkeydown = function (event) {
             }
             break;
         case 38:
-            //upKey(input);
+            upKey();
             break;
         case 40:
-            //downKey(input);
+            downKey();
             break;
     }
 };
 
+/*
+ * Translates the input into a function call
+ */
 function parse(input) {
     parts = input.split(" ");
     let fn = window[parts[0]];
@@ -41,4 +46,20 @@ function parse(input) {
         parts.shift();
         fn(parts);
     } else addLine(parts[0] + ": command not found");
+}
+
+/*
+ * Occurs when the user hit's the up arrow
+ * Moves up in the command history
+ */
+function upKey() {
+
+}
+
+/*
+ * Occurs when the user hit's the down arrow
+ * Moves down in the command history
+ */
+function downKey() {
+
 }

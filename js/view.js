@@ -5,7 +5,7 @@ var output = document.getElementById('output');
  * Adds the command to the history with the directory and username.
  */
 function saveCommand(input) {
-    let line = "<span><p class='accent' id='input-prefix'>" + directoryString + " " + username + "$&nbsp" + "</p></span>" + input;
+    let line = "<span><p class='accent'>" + directoryString + " " + username + "$&nbsp" + "</p></span>" + input;
     addLine(line);
     return numLines++;
 }
