@@ -44,6 +44,8 @@ function parse(input) {
         fn(parts);
     } else if (typeof fn === "string") {
         addLine(parts[0] + ": " + "'" + fn + "'");
+    } else if (typeof fn === "object") {
+        addLine(parts[0] + ": " + JSON.stringify(fn));
     } else {
         addLine(parts[0] + ": command not found");
     }
