@@ -7,6 +7,7 @@ function setUser(args) {
         let newName = args[0];
         username = newName;
         Cookies.set("username", newName);
+        cookieNames["username"] = new Object();
         updatePrefix();
     }
 }
