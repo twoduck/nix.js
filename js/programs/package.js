@@ -13,7 +13,7 @@ function install(args) {
         return;
     }
     let url = 'js/programs/' + package + '.js';
-    getPackage(url, function(response) {
+    getPackage(url, function (response) {
         let newScript = document.createElement("script");
         newScript.innerHTML = response;
         newScript.id = package;
@@ -22,21 +22,21 @@ function install(args) {
         addToPackageList(package);
         if (shouldPrint)
             addLine(package + " has been installed.");
-    }, function(errorText) {
+    }, function (errorText) {
         addLine("There was an error when installing " + package + ".");
     });
 }
 
 function getPackage(url, onSuccess, onError) {
     let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange=function() {
-      if (xhttp.readyState==4) {
-        if(xhttp.status==200) {
-          onSuccess(xhttp.responseText);
-        } else {
-          onError("Error");
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4) {
+            if (xhttp.status == 200) {
+                onSuccess(xhttp.responseText);
+            } else {
+                onError("Error");
+            }
         }
-      }
     };
     xhttp.open("GET", url, true);
     xhttp.send();
@@ -55,7 +55,7 @@ function addToPackageList(name) {
 function listPackages() {
     let packageList = Cookies.get('packages');
     if (packageList) {
-        packageList.split(",").forEach(function(element) {
+        packageList.split(",").forEach(function (element) {
             addLine(element);
         }, this);
     } else {
