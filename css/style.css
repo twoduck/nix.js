@@ -50,6 +50,10 @@ input {
     display: inline-block;
 }
 
+.align-center {
+    text-align: center;
+}
+
 .center {
     position: absolute;
     left: 50%;

@@ -14,11 +14,7 @@ document.getElementById("input-text").onkeydown = function (event) {
     var input = document.getElementById("input-text");
     switch (event.keyCode) {
         case 9:
-            if (window.event)
-                window.event.returnValue = false;
-            else if (event.cancelable)
-                event.preventDefault();
-            //Will add an autocomplete function eventually
+            tab();
             break;
         case 13:
             if (input.value.trim() != "") { //If a command has been entered
@@ -51,6 +47,17 @@ function parse(input) {
     } else {
         addLine(parts[0] + ": command not found");
     }
+}
+
+/*
+ * Occurs when the user hit's the tab key
+ * Autocompletes the command
+ */
+function tab() {
+    if (window.event)
+        window.event.returnValue = false;
+    else if (event.cancelable)
+        event.preventDefault();
 }
 
 /*
