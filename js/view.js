@@ -1,9 +1,13 @@
+var numLines = 0;
+var output = document.getElementById('output');
+
 /*
  * Adds the command to the history with the directory and username.
  */
 function saveCommand(input) {
     let line = "<span><p class='accent' id='input-prefix'>" + directoryString + " " + username + "$&nbsp" + "</p></span>" + input;
     addLine(line);
+    return numLines++;
 }
 
 /*
@@ -16,6 +20,7 @@ function addLine(input) {
     newNode.innerHTML = input;
     outputParent.appendChild(newNode);
     window.scrollTo(0,document.body.scrollHeight);
+    return numLines++;
 }
 
 /*
@@ -24,4 +29,13 @@ function addLine(input) {
 function updatePrefix() {
     result = directoryString + " " + username + "$&nbsp";
     document.getElementById("input-prefix").innerHTML = result;
+}
+
+/*
+ * Changes a line at specified index
+ */
+function changeLine(index, text) {
+    let line = output.childNodes[index];
+    if (line)
+        output.childNodes[index].innerHTML = text;
 }
