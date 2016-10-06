@@ -10,7 +10,6 @@ a, input, h1, h2, h3, h4, h5, h6, p {
 
 a {
     color: limegreen;
-    font-size: inherit;
 }
 
 a:hover {
@@ -66,7 +65,11 @@ input {
 
 .highlight {
     background-color: limegreen;
-    color: black;
+    color: #282828;
+    display: inline-block;
+}
+
+.inline * {
     display: inline-block;
 }
 
