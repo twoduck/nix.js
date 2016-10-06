@@ -96,3 +96,9 @@ input {
     -ms-transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
 }
+
+@media (max-width: 543px) {
+    input, p {
+        font-size: 18px;
+    }
+}
