@@ -2,7 +2,7 @@
  * Adds the command to the history with the directory and username.
  */
 function saveCommand(input) {
-    let line = directoryString + " " + username + "$ " + input;
+    let line = "<span><p class='accent' id='input-prefix'>" + directoryString + " " + username + "$&nbsp" + "</p></span>" + input;
     addLine(line);
 }
 

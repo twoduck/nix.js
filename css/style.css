@@ -1,5 +1,5 @@
 a, input, h1, h2, h3, h4, h5, h6, p {
-    color: #ddd;
+    color: #bbb;
     font-family: 'Source Code Pro', monospace;
     font-weight: 700;
     -webkit-font-smoothing: antialiased;
@@ -17,12 +17,8 @@ a:hover {
     text-decoration: underline;
 }
 
-body {
-    padding: 16px;
-}
-
 body, html, main {
-    background-color: #282828;
+    background-color: #222;
 }
 
 br {
@@ -32,6 +28,7 @@ br {
 
 input, p {
     font-size: 14px;
+    margin: 1px 0;
 }
 
 input {
@@ -42,6 +39,11 @@ input {
     -webkit-box-shadow: none;
     cursor: default;
     outline: none;
+}
+
+.accent {
+    color: limegreen;
+    display: inline-block;
 }
 
 .align-center {
@@ -56,6 +58,12 @@ input {
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
+}
+
+.highlight {
+    background-color: limegreen;
+    color: black;
+    display: inline-block;
 }
 
 #output {
@@ -74,4 +82,18 @@ input {
 
 #input-text {
     width: 100%;
+}
+
+#wrapper {
+    width: 100%;
+    background-color: #282828;
+    left: 50%;
+    margin: 16px;
+    max-width: 800px;
+    padding: 16px;
+    position: absolute;
+    transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
 }
