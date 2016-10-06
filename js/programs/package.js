@@ -17,7 +17,6 @@ function getPackage(url, onSuccess, onError) {
     xhttp.onreadystatechange=function() {
       if (xhttp.readyState==4) {
         if(xhttp.status==200) {
-          alert("Got the response!");
           onSuccess(xhttp.responseText);
         } else {
           onError("Error");
