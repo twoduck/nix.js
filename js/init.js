@@ -21,11 +21,14 @@ function loadPackages() {
         }, this);
     } else { //The user doesn't have any packages. Set them up with the basics.
         install(['cd', false]);
+        install(['clear', false]);
+        install(['echo', false]);
         install(['ls', false]);
         install(['mkdir', false]);
         install(['pwd', false]);
-        install(['echo', false]);
+        install(['reset', false]);
         install(['setUser', false]);
+        install(['tree', false]);
     }
 }
 
