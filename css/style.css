@@ -44,6 +44,10 @@ input {
     outline: none;
 }
 
+p {
+    min-height: 1em;
+}
+
 .accent {
     color: limegreen;
     display: inline-block;

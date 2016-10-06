@@ -2,6 +2,7 @@ function reset(args) {
     clear();
     clearCookies();
     clearUsername();
+    window.location.reload();
 }
 
 function clearCookies() {
