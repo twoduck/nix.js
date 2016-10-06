@@ -1,10 +1,15 @@
 var scripts = document.getElementById("scripts");
 
 function install(package) {
+    if (document.getElementById(package)) {
+        addLine(package + " is already installed");
+        return;
+    }
     let url = 'js/programs/' + package + '.js';
     getPackage(url, function(response) {
         let newScript = document.createElement("script");
         newScript.innerHTML = response;
+        newScript.id = package;
         scripts.appendChild(newScript);
         addLine(package + " has been installed.");
     }, function(errorText) {
