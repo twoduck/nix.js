@@ -47,7 +47,7 @@ function parse(input) {
         parts.shift();
         fn(parts);
     } else if (typeof fn === "string") {
-        addLine(parts[0] + ": " + fn);
+        addLine(parts[0] + ": " + "'" + fn + "'");
     } else {
         addLine(parts[0] + ": command not found");
     }
