@@ -38,6 +38,7 @@ document.getElementById("input-text").onkeydown = function (event) {
 
 /*
  * Translates the input into a function call
+ * Also shows declared variables
  */
 function parse(input) {
     parts = input.split(" ");
@@ -45,7 +46,11 @@ function parse(input) {
     if (typeof fn === 'function') {
         parts.shift();
         fn(parts);
-    } else addLine(parts[0] + ": command not found");
+    } else if (typeof fn === "string") {
+        addLine(parts[0] + ": " + fn);
+    } else {
+        addLine(parts[0] + ": command not found");
+    }
 }
 
 /*
