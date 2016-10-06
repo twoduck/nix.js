@@ -32,4 +32,3 @@ function getPackage(url, onSuccess, onError) {
     xhttp.open("GET", url, true);
     xhttp.send();
 }
-//
