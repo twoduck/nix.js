@@ -6,7 +6,6 @@ function clear(args) {
 
 function clearCookies() {
     Object.keys(Cookies.get()).forEach(function(element) {
-        console.log(element);
         Cookies.remove(element);
     }, this);
 }
