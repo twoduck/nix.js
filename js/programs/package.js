@@ -2,7 +2,7 @@ var scripts = document.getElementById("scripts");
 
 function install(package) {
     if (document.getElementById(package)) {
-        addLine(package + " is already installed");
+        addLine(package + " is already installed.");
         return;
     }
     let url = 'js/programs/' + package + '.js';
@@ -10,6 +10,7 @@ function install(package) {
         let newScript = document.createElement("script");
         newScript.innerHTML = response;
         newScript.id = package;
+        newScript.type = "text/javascript";
         scripts.appendChild(newScript);
         addLine(package + " has been installed.");
     }, function(errorText) {
