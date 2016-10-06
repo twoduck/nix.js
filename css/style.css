@@ -18,7 +18,7 @@ a:hover {
 }
 
 body, html, main {
-    background-color: #222;
+    background-color: #282828;
 }
 
 br {
@@ -86,7 +86,6 @@ input {
 
 #wrapper {
     width: 100%;
-    background-color: #282828;
     left: 50%;
     margin: 16px;
     max-width: 800px;
