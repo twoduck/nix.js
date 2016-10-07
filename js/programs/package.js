@@ -1,30 +1,42 @@
 var scripts = document.getElementById("scripts");
 
-function install(args) {
-    if (args.length != 1 && args.length != 2) {
-        addLine("Please include just a package name.");
-        return;
+function pkg(args) {
+    if (args[0] === "install") {
+        if (args.length != 2 && args.length != 3) {
+            addLine("Please include just a package name.");
+            return;
+        }
+        console.log(args);
+        let package = args[1];
+        let shouldPrint = (args[2] === undefined) ? true : args[2] == true; //Print by default
+        if (document.getElementById(package)) {
+            addLine(package + " is already installed.");
+            return;
+        }
+        let url = 'js/programs/' + package + '.js';
+        getPackage(url, function (response) {
+            let newScript = document.createElement("script");
+            newScript.innerHTML = response;
+            newScript.id = package;
+            newScript.type = "text/javascript";
+            scripts.appendChild(newScript);
+            addToPackageList(package);
+            if (shouldPrint)
+                addLine(package + " has been installed.");
+        }, function (errorText) {
+            addLine("There was an error when installing " + package + ".");
+        });
     }
-    console.log(args);
-    let package = args[0];
-    let shouldPrint = (args[1] === undefined) ? true : args[1] == true; //Print by default
-    if (document.getElementById(package)) {
-        addLine(package + " is already installed.");
-        return;
+    if (args[0] === "list") {
+        let packageList = Cookies.get('packages');
+        if (packageList) {
+            packageList.split(",").sort().forEach(function (element) {
+                addLine(element);
+            }, this);
+        } else {
+            addLine("You do not have any packages installed.");
+        }
     }
-    let url = 'js/programs/' + package + '.js';
-    getPackage(url, function (response) {
-        let newScript = document.createElement("script");
-        newScript.innerHTML = response;
-        newScript.id = package;
-        newScript.type = "text/javascript";
-        scripts.appendChild(newScript);
-        addToPackageList(package);
-        if (shouldPrint)
-            addLine(package + " has been installed.");
-    }, function (errorText) {
-        addLine("There was an error when installing " + package + ".");
-    });
 }
 
 function getPackage(url, onSuccess, onError) {
@@ -50,15 +62,4 @@ function addToPackageList(name) {
         packageList += ',' + name;
     }
     Cookies.set("packages", packageList);
-}
-
-function listPackages() {
-    let packageList = Cookies.get('packages');
-    if (packageList) {
-        packageList.split(",").sort().forEach(function (element) {
-            addLine(element);
-        }, this);
-    } else {
-        addLine("You do not have any packages installed.");
-    }
 }

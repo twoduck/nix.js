@@ -31,6 +31,26 @@ function loadPackages() {
     let packageList = Cookies.get('packages');
     if (packageList) { //The user already has a list of packages
         packageList.split(",").forEach(function (element) {
+            pkg(["install", element, false]);
+        }, this);
+    } else { //The user doesn't have any packages. Set them up with the basics.
+        pkg(['install', 'cd', false]);
+        pkg(['install', 'clear', false]);
+        pkg(['install', 'date', false]);
+        pkg(['install', 'echo', false]);
+        pkg(['install', 'ls', false]);
+        pkg(['install', 'mkdir', false]);
+        pkg(['install', 'pwd', false]);
+        pkg(['install', 'reset', false]);
+        pkg(['install', 'setUser', false]);
+        pkg(['install', 'tree', false]);
+    }
+}
+
+/*function loadPackages() {
+    let packageList = Cookies.get('packages');
+    if (packageList) { //The user already has a list of packages
+        packageList.split(",").forEach(function (element) {
             install([element, false]);
         }, this);
     } else { //The user doesn't have any packages. Set them up with the basics.
@@ -45,7 +65,7 @@ function loadPackages() {
         install(['setUser', false]);
         install(['tree', false]);
     }
-}
+}*/
 
 function welcome() {
     addLine("");
