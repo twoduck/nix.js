@@ -72,8 +72,8 @@ function welcome() {
     addLine("JS Terminal is an OS for your browser, similar to UNIX and written entirely in JavaScript. It has a "
         + "virtual file system, a package manager for installing additional functions, and a command prompt interface.");
     addLine("");
-    addLine("To get started, type \'setUser\' to change your username or type \'listPackages\' for a list of "
-        + "available commands. More packages can be added dynamically with the \'install\' command.");
+    addLine("To get started, type \'setUser\' to change your username or type \'pkg list\' for a list of "
+        + "available commands. More packages can be added dynamically with the \'pkg install\' command.");
     addLine("");
 }
 
