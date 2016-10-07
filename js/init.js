@@ -30,6 +30,7 @@ function loadPackages() {
     } else { //The user doesn't have any packages. Set them up with the basics.
         install(['cd', false]);
         install(['clear', false]);
+        install(['date', false]);
         install(['echo', false]);
         install(['ls', false]);
         install(['mkdir', false]);
