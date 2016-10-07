@@ -1,13 +1,18 @@
 function cd(args) {
-    if (args.length < 1)
-        return;
-    let directoryTarget = args[0];
     let currentFolder = getCurrentFolderObject();
+    if (args.length < 1 || args[0] == '~') { //Check if we should go to home
+        currentFolder = fileStructure;
+        directoryStack = [];
+        moveIntoDirectory('home');
+        updateDirectoryString();
+        return;
+    }
+    let directoryTarget = args[0];
     if (directoryTarget == '/') { //Check if we should go to root
-            currentFolder = fileStructure;
-            directoryStack = [];
-            updateDirectoryString();
-            return;
+        currentFolder = fileStructure;
+        directoryStack = [];
+        updateDirectoryString();
+        return;
     }
     let done = false;
     directories = directoryTarget.split("/"); //Array of directories we will look through

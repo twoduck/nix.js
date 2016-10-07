@@ -8,16 +8,18 @@ function init() {
 
 function initFiles() {
     //if (!Cookies.get("newUser")) {
-        let folder = getCurrentFolderObject();
-        folder["bin"] = {};
-        folder["dev"] = {};
-        folder["etc"] = {};
-        folder["home"] = {};
-        folder["root"] = {};
-        folder["sbin"] = {};
-        folder["tmp"] = {};
-        folder["usr"] = {};
-        folder["var"] = {};
+    let folder = getCurrentFolderObject();
+    folder["bin"] = {};
+    folder["dev"] = {};
+    folder["etc"] = {};
+    folder["home"] = {};
+    folder["root"] = {};
+    folder["sbin"] = {};
+    folder["tmp"] = {};
+    folder["usr"] = {};
+    folder["var"] = {};
+    moveIntoDirectory('home');
+    updateDirectoryString();
     //}
     //Cookies.set("newUser", false);
 }
@@ -48,24 +50,24 @@ function loadPackages() {
 }
 
 /*function loadPackages() {
-    let packageList = Cookies.get('packages');
-    if (packageList) { //The user already has a list of packages
-        packageList.split(",").forEach(function (element) {
-            install([element, false]);
-        }, this);
-    } else { //The user doesn't have any packages. Set them up with the basics.
-        install(['cd', false]);
-        install(['clear', false]);
-        install(['date', false]);
-        install(['echo', false]);
-        install(['ls', false]);
-        install(['mkdir', false]);
-        install(['pwd', false]);
-        install(['reset', false]);
-        install(['setUser', false]);
-        install(['tree', false]);
-    }
-}*/
+ let packageList = Cookies.get('packages');
+ if (packageList) { //The user already has a list of packages
+ packageList.split(",").forEach(function (element) {
+ install([element, false]);
+ }, this);
+ } else { //The user doesn't have any packages. Set them up with the basics.
+ install(['cd', false]);
+ install(['clear', false]);
+ install(['date', false]);
+ install(['echo', false]);
+ install(['ls', false]);
+ install(['mkdir', false]);
+ install(['pwd', false]);
+ install(['reset', false]);
+ install(['setUser', false]);
+ install(['tree', false]);
+ }
+ }*/
 
 function welcome() {
     addLine("");

@@ -6,6 +6,8 @@ var fileStructure = {};
 
 function updateDirectoryString() {
     directoryString = "/" + directoryStack.join("/");
+    if (directoryString === '/home')
+        directoryString = '~';
     updatePrefix();
 }
 
@@ -22,7 +24,7 @@ function moveUpDirectory() {
  */
 function getCurrentFolderObject() {
     let lookingAt = fileStructure;
-    directoryStack.forEach(function(element) {
+    directoryStack.forEach(function (element) {
         lookingAt = lookingAt[element];
     }, this);
     return lookingAt;
