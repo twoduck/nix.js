@@ -55,7 +55,7 @@ function addToPackageList(name) {
 function listPackages() {
     let packageList = Cookies.get('packages');
     if (packageList) {
-        packageList.split(",").forEach(function (element) {
+        packageList.split(",").sort().forEach(function (element) {
             addLine(element);
         }, this);
     } else {
