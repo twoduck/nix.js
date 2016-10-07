@@ -1,7 +1,7 @@
 var directoryStack = [];
 var directoryString = "/";
 var username = "root";
-var fileStructure = new Object();
+var fileStructure = {};
 
 
 function updateDirectoryString() {

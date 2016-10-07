@@ -5,5 +5,5 @@ function mkdir(args) {
         return;
     let directoryTarget = args[0];
     let currentFolder = getCurrentFolderObject();
-    currentFolder[args[0]] = new Object();
+    currentFolder[args[0]] = {};
 }

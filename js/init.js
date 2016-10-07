@@ -1,24 +1,30 @@
 function init() {
-    welcome();
     loadUsername();
-    updatePrefix();
     loadPackages();
+    updatePrefix();
+    initFiles();
+    welcome();
 }
 
-function welcome() {
-    addLine("");
-    addLine("JS Terminal is an OS for your browser, similar to UNIX and written entirely in JavaScript. It has a "
-        + "virtual file system, a package manager for installing additional functions, and a command prompt interface.");
-    addLine("");
-    addLine("To get started, type \'setUser\' to change your username or type \'listPackages\' for a list of "
-        + "available commands. More packages can be added dynamically with the \'install\' command.");
-    addLine("");
+function initFiles() {
+    //if (!Cookies.get("newUser")) {
+        let folder = getCurrentFolderObject();
+        folder["bin"] = {};
+        folder["dev"] = {};
+        folder["etc"] = {};
+        folder["home"] = {};
+        folder["root"] = {};
+        folder["sbin"] = {};
+        folder["tmp"] = {};
+        folder["usr"] = {};
+        folder["var"] = {};
+    //}
+    //Cookies.set("newUser", false);
 }
 
 function loadUsername() {
-    if (Cookies.get('username')) {
+    if (Cookies.get('username'))
         username = Cookies.get('username');
-    }
 }
 
 function loadPackages() {
@@ -39,6 +45,16 @@ function loadPackages() {
         install(['setUser', false]);
         install(['tree', false]);
     }
+}
+
+function welcome() {
+    addLine("");
+    addLine("JS Terminal is an OS for your browser, similar to UNIX and written entirely in JavaScript. It has a "
+        + "virtual file system, a package manager for installing additional functions, and a command prompt interface.");
+    addLine("");
+    addLine("To get started, type \'setUser\' to change your username or type \'listPackages\' for a list of "
+        + "available commands. More packages can be added dynamically with the \'install\' command.");
+    addLine("");
 }
 
 window.onload = function () {
