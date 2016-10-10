@@ -1,4 +1,4 @@
 function date(args) {
-    var clock = new Date();
+    let clock = new Date();
     addLine(clock.toDateString() + ", " + clock.toTimeString());
 }
