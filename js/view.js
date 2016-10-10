@@ -39,3 +39,21 @@ function changeLine(index, text) {
     if (line)
         output.childNodes[index].innerHTML = text;
 }
+
+/*
+ * Changes the input text box
+ */
+function changeInputText(text) {
+    let inputBox = document.getElementById("input-text");
+    inputBox.value = text;
+}
+
+/*
+ * Moves cursor to end of input box
+ */
+function moveCursorToEnd() {
+    let inputBox = document.getElementById("input-text");
+    inputBox.focus();
+    inputBox.selectionStart = inputBox.value.length;
+    inputBox.selectionEnd = inputBox.value.length;
+}

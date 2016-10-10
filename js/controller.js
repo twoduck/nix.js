@@ -1,4 +1,6 @@
-var commandQueue = [];
+var commands = [];
+var commandIndex = 0;
+var notYetEntered = "";
 
 /*
  * Ensures that the user is always focused on the input text.
@@ -13,20 +15,23 @@ document.onclick = function () {
 document.getElementById("input-text").onkeydown = function (event) {
     var input = document.getElementById("input-text");
     switch (event.keyCode) {
-        case 9:
+        case 9: //Tab key
             tab();
             break;
-        case 13:
-            if (input.value.trim() != "") { //If a command has been entered
-                saveCommand(input.value.trim()); //Add the command to the history.
-                parse(input.value.trim());
+        case 13: //Enter key
+            let command = input.value.trim();
+            if (command != "") { //If a command has been entered
+                saveCommand(command); //Add the command to the history.
+                commands[commands.length] = command; //Append the command to the list
+                commandIndex = commands.length;
+                parse(command);
                 input.value = ""; //reset the input
             }
             break;
-        case 38:
+        case 38: //Up arrow key
             upKey();
             break;
-        case 40:
+        case 40: //Down arrow key
             downKey();
             break;
     }
@@ -63,11 +68,33 @@ function tab() {
 }
 
 /*
+ * Ensures that the cursor is at the end
+ * of the input box, even when scrolling
+ * through the command history
+ */
+document.getElementById("input-text").onkeyup = function(event) {
+    switch (event.keyCode) {
+        case 38:
+            moveCursorToEnd();
+            break;
+        case 40:
+            moveCursorToEnd();
+            break;
+    }
+}
+
+/*
  * Occurs when the user hit's the up arrow
  * Moves up in the command history
  */
 function upKey() {
-
+    if (commandIndex > 0) {
+        if (commandIndex === commands.length)
+            notYetEntered = document.getElementById("input-text").value;
+        let command = commands[--commandIndex];
+        changeInputText(command);
+    }
+    moveCursorToEnd(); //Move the cursor to the end of the input
 }
 
 /*
@@ -75,5 +102,11 @@ function upKey() {
  * Moves down in the command history
  */
 function downKey() {
-
+    if (commandIndex < commands.length - 1) {
+        let command = commands[++commandIndex];
+        changeInputText(command);
+    } else if (commandIndex === commands.length - 1) {
+        changeInputText(notYetEntered);
+    }
+    moveCursorToEnd(); //Move the cursor to the end of the input
 }
