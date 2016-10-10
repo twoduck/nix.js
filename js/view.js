@@ -53,7 +53,6 @@ function changeInputText(text) {
  */
 function moveCursorToEnd() {
     let inputBox = document.getElementById("input-text");
-    inputBox.focus();
     inputBox.selectionStart = inputBox.value.length;
     inputBox.selectionEnd = inputBox.value.length;
 }

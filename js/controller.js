@@ -29,9 +29,11 @@ document.getElementById("input-text").onkeydown = function (event) {
             }
             break;
         case 38: //Up arrow key
+            moveCursorToEnd();
             upKey();
             break;
         case 40: //Down arrow key
+            moveCursorToEnd();
             downKey();
             break;
     }
@@ -94,7 +96,6 @@ function upKey() {
         let command = commands[--commandIndex];
         changeInputText(command);
     }
-    moveCursorToEnd(); //Move the cursor to the end of the input
 }
 
 /*
@@ -106,7 +107,7 @@ function downKey() {
         let command = commands[++commandIndex];
         changeInputText(command);
     } else if (commandIndex === commands.length - 1) {
+        commandIndex++;
         changeInputText(notYetEntered);
     }
-    moveCursorToEnd(); //Move the cursor to the end of the input
 }
