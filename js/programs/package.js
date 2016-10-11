@@ -1,6 +1,13 @@
 var scripts = document.getElementById("scripts");
 
 function pkg(args) {
+    if (!args[0] || args[0] === "help") {
+        addLine("Currently available commands:");
+        addLine("install - install a new package - 'pkg install [package]'");
+        addLine("uninstall - uninstall a package - 'pkg uninstall [package]'");
+        addLine("list - list installed packages - 'pkg list'");
+        return;
+    }
     if (args[0] === "install") {
         install(args[1], args[2]);
     }
