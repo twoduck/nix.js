@@ -50,8 +50,9 @@ let uninstall = function(packageName, shouldPrint) {
             else return total + "," + element;
         else return total;
     });
-    console.log(newPackageList);
     Cookies.set("packages", newPackageList);
+    if (shouldPrint || shouldPrint === undefined)
+        addLine(packageName + " has been uninstalled.");
 }
 
 let install = function(packageName, shouldPrint) {
