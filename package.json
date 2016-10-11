@@ -1,9 +1,10 @@
 {
   "name": "js-terminal",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A pseudo-terminal written in JS",
   "main": "index.js",
   "scripts": {
+    "start": "node testServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
