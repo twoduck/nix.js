@@ -20,7 +20,7 @@ function pkg(args) {
 }
 
 let list = function() {
-    let packageList = Cookies.get('packages');
+    let packageList = localStorage.getItem("packages");
     if (packageList) {
         packageList.split(",").sort().forEach(function (element) {
             addLine(element);
@@ -31,7 +31,7 @@ let list = function() {
 }
 
 let uninstall = function(packageName, shouldPrint) {
-    let packageList = Cookies.get("packages");
+    let packageList = localStorage.getItem("packages");
     if (!packageList) {
         addLine("You don't have any packages to uninstall.");
         return;
@@ -57,7 +57,7 @@ let uninstall = function(packageName, shouldPrint) {
             else return total + "," + element;
         else return total;
     });
-    Cookies.set("packages", newPackageList);
+    localStorage.setItem("packages", newPackageList);
     if (shouldPrint || shouldPrint === undefined)
         addLine(packageName + " has been uninstalled.");
 }
@@ -102,11 +102,11 @@ let getPackage = function(url, onSuccess, onError) {
 }
 
 let addToPackageList = function(name) {
-    let packageList = Cookies.get('packages');
+    let packageList = localStorage.getItem('packages');
     if (!packageList) {
         packageList = name;
     } else if (packageList.split(",").indexOf(name) == -1) { //only add to package list if it's not already in it
         packageList += ',' + name;
     }
-    Cookies.set("packages", packageList);
+    localStorage.setItem("packages", packageList);
 }

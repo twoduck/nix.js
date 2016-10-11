@@ -1,17 +1,17 @@
 function reset(args) {
     clear();
-    clearCookies();
+    clearStorage();
     clearUsername();
     window.location.reload();
 }
 
-function clearCookies() {
-    Object.keys(Cookies.get()).forEach(function(element) {
-        Cookies.remove(element);
+let clearStorage = function() {
+    Object.keys(localStorage).forEach(function(element) {
+        localStorage.removeItem(element);
     }, this);
 }
 
-function clearUsername() {
+let clearUsername = function() {
     username = "root";
     updatePrefix();
 }

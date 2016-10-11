@@ -6,7 +6,7 @@ function setUser(args) {
     } else {
         let newName = args[0];
         username = newName;
-        Cookies.set("username", newName);
+        localStorage.setItem("username", newName);
         updatePrefix();
     }
 }
