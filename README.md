@@ -6,7 +6,7 @@ A JS terminal emulator, in your browser. Created by [Michael Bilstein](https://g
 
 https://scottmangiapane.github.io/js-terminal/
 
-## How to write programs for <span>os.</span>js
+## How to write programs for js-term
 
 - You should have only one user-facing function, with all helper functions scope restricted.
   - Your primary function should be declared like: `function myFunction(args)`
@@ -45,5 +45,5 @@ let getDate = function() {
 ```
 
 
-## Submitting a package to <span>os.</span>js
+## Submitting a package to js-term
 In order to submit a package to be added to the repository, just make a pull request with your package in the js/programs folder. We will review your package and merge if it follows the guidelines provided.
