@@ -5,8 +5,15 @@ var output = document.getElementById('output');
  * Adds the command to the history with the directory and username.
  */
 function saveCommand(input) {
-    let line = "<span><p class='accent'>" + directoryString + " " + username + "$&nbsp" + "</p></span>" + input;
-    addLine(line);
+    let parentNode = document.createElement("p");
+    let spanNode = document.createElement("span");
+    let textNode = document.createElement("p");
+    textNode.className = "accent";
+    spanNode.appendChild(textNode);
+    parentNode.appendChild(spanNode);
+    document.getElementById("output").appendChild(parentNode);
+    textNode.innerHTML = directoryString + " " + username + "$&nbsp";
+    parentNode.innerHTML += input;
     return numLines++;
 }
 
@@ -17,7 +24,8 @@ function saveCommand(input) {
 function addLine(input) {
     let outputParent = document.getElementById("output");
     let newNode = document.createElement("p");
-    newNode.innerHTML = input;
+    const withSpacesFixed = input.replace(/ /g, "&nbsp");
+    newNode.innerHTML = withSpacesFixed;
     outputParent.appendChild(newNode);
     window.scrollTo(0,document.body.scrollHeight);
     return numLines++;
