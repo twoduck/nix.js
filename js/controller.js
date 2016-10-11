@@ -6,8 +6,10 @@ var lastKeyCode = 0;
  * Ensures that the user is always focused on the input text.
  */
 document.onkeydown = function (event) {
-    if (event.keyCode != 91 && event.keyCode != 17)
+    if (event.keyCode != 91 && event.keyCode != 17 && !(
+        event.keyCode == 67 && (lastKeyCode === 91 || lastKeyCode === 17)))
         document.getElementById("input-text").focus();
+    lastKeyCode = event.keyCode;
 }
 
 /*
