@@ -1,19 +1,21 @@
 var commands = [];
 var commandIndex = 0;
 var notYetEntered = "";
-
+var lastKeyCode = 0;
 /*
  * Ensures that the user is always focused on the input text.
  */
-document.onclick = function () {
-    document.getElementById("input-text").focus();
-};
+document.onkeydown = function (event) {
+    if (event.keyCode != 91 && event.keyCode != 17)
+        document.getElementById("input-text").focus();
+}
 
 /*
  * Controls what happens on each keypress in the input box.
  */
 document.getElementById("input-text").onkeydown = function (event) {
     var input = document.getElementById("input-text");
+    input.focus();
     switch (event.keyCode) {
         case 9: //Tab key
             tab();
