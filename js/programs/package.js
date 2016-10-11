@@ -6,6 +6,7 @@ function pkg(args) {
         addLine("install - install a new package - 'pkg install [package]'");
         addLine("uninstall - uninstall a package - 'pkg uninstall [package]'");
         addLine("list - list installed packages - 'pkg list'");
+        addLine("available - list all packages available to install from the internet - 'pkg available'");
         return;
     }
     if (args[0] === "install") {
@@ -16,6 +17,9 @@ function pkg(args) {
     }
     if (args[0] === "uninstall") {
         uninstall(args[1], args[2]);
+    }
+    if (args[0] === "available") {
+        available();
     }
 }
 
@@ -84,6 +88,27 @@ let install = function(packageName, shouldPrint) {
         }, function (errorText) {
             addLine("There was an error when installing " + packageName + ".");
         });
+}
+
+let available = function() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (xhttp.readyState == 4) {
+            if (xhttp.status == 200) {
+                let packages = xhttp.responseText.split(",");
+                packages.forEach(function(element) {
+                    if (document.getElementById(element))
+                        addLine("* " + element);
+                    else addLine(element);
+                }, this);
+            } else {
+                addLine("There was an error downloading the list of available packages.");
+            }
+        }
+    };
+    let url = "js/programs/packages";
+    xhttp.open("GET", url, true);
+    xhttp.send();
 }
 
 let getPackage = function(url, onSuccess, onError) {
