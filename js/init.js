@@ -25,8 +25,10 @@ function initFiles() {
 }
 
 function loadUsername() {
-    if (Cookies.get('username'))
+    if (Cookies.get('username')) {
         username = Cookies.get('username');
+        updatePrefix();
+    }
 }
 
 function loadPackages() {
@@ -46,6 +48,7 @@ function loadPackages() {
         pkg(['install', 'reset', false]);
         pkg(['install', 'setUser', false]);
         pkg(['install', 'tree', false]);
+        pkg(["install", "job", false]);
     }
 }
 
