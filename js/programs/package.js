@@ -35,6 +35,11 @@ const list = function() {
 };
 
 const uninstall = function(packageName, shouldPrint) {
+    if (packageName === undefined) {
+        addLine("You did not specify a package to uninstall.");
+        addLine("Usage: pkg uninstall [package]");
+        return;
+    }
     const packageList = localStorage.getItem("packages");
     if (!packageList) {
         addLine("You don't have any packages to uninstall.");
