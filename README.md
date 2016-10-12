@@ -35,12 +35,12 @@ function helloNameAndDate(args) {
    }
    const name = args[0];
    const date = getDate();
-   addLine("Hello, " + name + ". It is: " + date);
+   addLine(`Hello, ${name}. It is: ${date}`);
 }
 
 const getDate = function() {
-    let clock = new Date();
-    return clock.toDateString() + ", " + clock.toTimeString();
+    const clock = new Date();
+    return `${clock.toDateString()}, ${clock.toTimeString()}`;
 }
 ```
 
