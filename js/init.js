@@ -6,8 +6,8 @@ function init() {
     welcome();
 }
 
-let initFiles = function() {
-    let folder = getCurrentFolderObject();
+const initFiles = function() {
+    const folder = getCurrentFolderObject();
     folder["bin"] = {};
     folder["dev"] = {};
     folder["etc"] = {};
@@ -19,19 +19,19 @@ let initFiles = function() {
     folder["var"] = {};
     moveIntoDirectory('home');
     updateDirectoryString();
-}
+};
 
-let loadUsername = function() {
+const loadUsername = function() {
     if (localStorage.getItem("username")) {
         username = localStorage.getItem("username");
         updatePrefix();
     }
-}
+};
 
-let loadPackages = function() {
-    let packageList = localStorage.getItem('packages');
+const loadPackages = function() {
+    const packageList = localStorage.getItem('packages');
     if (packageList) { //The user already has a list of packages
-        packageList.split(",").forEach(function (element) {
+        packageList.split(",").forEach((element) => {
             pkg(["install", element, false]);
         }, this);
     } else { //The user doesn't have any packages. Set them up with the basics.
@@ -47,18 +47,16 @@ let loadPackages = function() {
         pkg(['install', 'tree', false]);
         pkg(["install", "job", false]);
     }
-}
+};
 
-let welcome = function() {
+const welcome = function() {
     addLine("");
-    addLine("JS Terminal is an OS for your browser, similar to UNIX and written entirely in JavaScript. It has a "
-        + "virtual file system, a package manager for installing additional functions, and a command prompt interface.");
+    addLine("JS Terminal is an OS for your browser, similar to UNIX and written entirely in JavaScript. It has a virtual file system, a package manager for installing additional functions, and a command prompt interface.");
     addLine("");
-    addLine("To get started, type \'setUser\' to change your username or type \'pkg list\' for a list of "
-        + "available commands. More packages can be added dynamically with the \'pkg install\' command.");
+    addLine("To get started, type 'setUser' to change your username or type 'pkg list' for a list of available commands. More packages can be added dynamically with the 'pkg install' command.");
     addLine("");
-}
+};
 
-window.onload = function () {
+window.onload = function() {
     init();
 };
