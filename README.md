@@ -30,7 +30,7 @@ https://scottmangiapane.github.io/js-terminal/
 ```javascript
 function helloNameAndDate(args) {
    if (!args[0]) {
-       addLine("Please provide a name");
+       addLine("Please provide a name.");
        return;
    }
    const name = args[0];
@@ -41,7 +41,7 @@ function helloNameAndDate(args) {
 const getDate = function() {
     const clock = new Date();
     return `${clock.toDateString()}, ${clock.toTimeString()}`;
-}
+};
 ```
 
 
