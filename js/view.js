@@ -12,7 +12,7 @@ function saveCommand(input) {
     spanNode.appendChild(textNode);
     parentNode.appendChild(spanNode);
     document.getElementById("output").appendChild(parentNode);
-    textNode.innerHTML = directoryString + " " + username + "$&nbsp";
+    textNode.innerHTML = `${directoryString} ${username}$&nbsp`;
     parentNode.innerHTML += input;
     return numLines++;
 }

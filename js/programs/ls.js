@@ -1,6 +1,7 @@
 function ls(args) {
-    let currentFolder = getCurrentFolderObject();
-    Object.keys(currentFolder).sort().forEach(function(element) {
-        addLine(element);
+    Object.keys(directoryIn.content).sort().forEach((element) => {
+        if (typeof directoryIn.content[element].content === "object")
+            addLine(`${element}/`);
+        else addLine(element);
     }, this);
 }

@@ -1,4 +1,4 @@
 function echo(text) {
-    let output = text.join(' ');
+    const output = text.join(" ");
     addLine(output);
 }

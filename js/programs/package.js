@@ -127,7 +127,7 @@ const getPackage = function(url, onSuccess, onError) {
 };
 
 const addToPackageList = function(name) {
-    let packageList = localStorage.getItem('packages');
+    let packageList = localStorage.getItem("packages");
     if (!packageList) {
         packageList = name;
     } else if (packageList.split(",").indexOf(name) == -1) { //only add to package list if it's not already in it

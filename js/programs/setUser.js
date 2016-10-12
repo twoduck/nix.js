@@ -4,7 +4,7 @@ function setUser(args) {
     } else if (args.length !== 1) {
         newLine("Please include just a username and try again.");
     } else {
-        let newName = args[0];
+        const newName = args[0];
         username = newName;
         localStorage.setItem("username", newName);
         updatePrefix();

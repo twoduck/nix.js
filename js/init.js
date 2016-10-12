@@ -1,23 +1,21 @@
 function init() {
     loadUsername();
     loadPackages();
-    updatePrefix();
     initFiles();
+    updatePrefix();
     welcome();
 }
 
 const initFiles = function() {
-    const folder = getCurrentFolderObject();
-    folder["bin"] = {};
-    folder["dev"] = {};
-    folder["etc"] = {};
-    folder["home"] = {};
-    folder["root"] = {};
-    folder["sbin"] = {};
-    folder["tmp"] = {};
-    folder["usr"] = {};
-    folder["var"] = {};
-    moveIntoDirectory('home');
+    mkdir(["bin"]);
+    mkdir(["dev"]);
+    mkdir(["etc"]);
+    mkdir(["home"]);
+    mkdir(["root"]);
+    mkdir(["sbin"]);
+    mkdir(["tmp"]);
+    mkdir(["usr"]);
+    mkdir(["var"]);
     updateDirectoryString();
 };
 
@@ -29,23 +27,24 @@ const loadUsername = function() {
 };
 
 const loadPackages = function() {
-    const packageList = localStorage.getItem('packages');
+    const packageList = localStorage.getItem("packages");
     if (packageList) { //The user already has a list of packages
         packageList.split(",").forEach((element) => {
             pkg(["install", element, false]);
         }, this);
     } else { //The user doesn't have any packages. Set them up with the basics.
-        pkg(['install', 'cd', false]);
-        pkg(['install', 'clear', false]);
-        pkg(['install', 'date', false]);
-        pkg(['install', 'echo', false]);
-        pkg(['install', 'ls', false]);
-        pkg(['install', 'mkdir', false]);
-        pkg(['install', 'pwd', false]);
-        pkg(['install', 'reset', false]);
-        pkg(['install', 'setUser', false]);
-        pkg(['install', 'tree', false]);
+        pkg(["install", "cd", false]);
+        pkg(["install", "clear", false]);
+        pkg(["install", "date", false]);
+        pkg(["install", "echo", false]);
+        pkg(["install", "ls", false]);
+        pkg(["install", "pwd", false]);
+        pkg(["install", "reset", false]);
+        pkg(["install", "setUser", false]);
+        pkg(["install", "tree", false]);
         pkg(["install", "job", false]);
+        pkg(["install", "cat", false]);
+        pkg(["install", "touch", false]);
     }
 };
 

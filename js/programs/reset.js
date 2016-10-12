@@ -5,13 +5,13 @@ function reset(args) {
     window.location.reload();
 }
 
-let clearStorage = function() {
-    Object.keys(localStorage).forEach(function(element) {
+const clearStorage = function() {
+    Object.keys(localStorage).forEach((element) => {
         localStorage.removeItem(element);
     }, this);
-}
+};
 
-let clearUsername = function() {
+const clearUsername = function() {
     username = "root";
     updatePrefix();
-}
+};

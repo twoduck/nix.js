@@ -1,9 +1,14 @@
 function mkdir(args) {
     if (args.length < 1)
         return;
-    if (args[0].indexOf('.') != -1 || args[0].indexOf('/') != -1 )
+    if (args[0].indexOf(".") != -1 || args[0].indexOf("/") != -1 )
         return;
-    let directoryTarget = args[0];
-    let currentFolder = getCurrentFolderObject();
-    currentFolder[args[0]] = {};
+    const directoryTarget = args[0];
+    const currentFolder = directoryIn;
+    const newParent = (currentFolder.parent === "/") ? `/${currentFolder.name}` : `${currentFolder.parent}/${currentFolder.name}`;
+    currentFolder.content[directoryTarget] = {
+        name: directoryTarget,
+        parent: newParent,
+        content: {}
+    };
 }
