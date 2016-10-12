@@ -14,6 +14,7 @@
         "template-curly-spacing": "error",
         "no-useless-escape": "error",
         "wrap-iife": "error",
+        "quotes": ["error", "double"],
         "no-loop-func": "error",
         "prefer-rest-params": "error",
         "no-new-func": "error",
