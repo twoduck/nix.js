@@ -2,53 +2,54 @@ var scripts = document.getElementById("scripts");
 
 function pkg(args) {
     if (!args[0] || args[0] === "help") {
-        addLine("Currently available commands:");
-        addLine("install - install a new package - 'pkg install [package]'");
-        addLine("uninstall - uninstall a package - 'pkg uninstall [package]'");
-        addLine("list - list installed packages - 'pkg list'");
-        addLine("available - list all packages available to install from the internet - 'pkg available'");
-        return;
-    }
-    if (args[0] === "install") {
+        help();
+    } else if (args[0] === "install") {
         install(args[1], args[2]);
-    }
-    if (args[0] === "list") {
+    } else if (args[0] === "list") {
         list();
-    }
-    if (args[0] === "uninstall") {
+    } else if (args[0] === "uninstall") {
         uninstall(args[1], args[2]);
-    }
-    if (args[0] === "available") {
+    } else if (args[0] === "available") {
         available();
+    } else {
+        help();
     }
+}
+
+const help = function() {
+    stdout("Currently available commands:");
+    stdout("install - install a new package - 'pkg install [package]'");
+    stdout("uninstall - uninstall a package - 'pkg uninstall [package]'");
+    stdout("list - list installed packages - 'pkg list'");
+    stdout("available - list all packages available to install from the internet - 'pkg available'");
 }
 
 const list = function() {
     const packageList = localStorage.getItem("packages");
     if (packageList) {
         packageList.split(",").sort().forEach((element) => {
-            addLine(element);
+            stdout(element);
         }, this);
     } else {
-        addLine("You do not have any packages installed.");
+        stdout("You do not have any packages installed.");
     }
 };
 
 const uninstall = function(packageName, shouldPrint) {
     if (packageName === undefined) {
-        addLine("You did not specify a package to uninstall.");
-        addLine("Usage: pkg uninstall [package]");
+        stderr("You did not specify a package to uninstall.");
+        stdout("Usage: pkg uninstall [package]");
         return;
     }
     const packageList = localStorage.getItem("packages");
     if (!packageList) {
-        addLine("You don't have any packages to uninstall.");
+        stderr("You don't have any packages to uninstall.");
         return;
     }
     const packagesParent = document.getElementById("scripts");
     const element = document.getElementById(packageName);
     if (!element) {
-        addLine(`${packageName} is not installed.`);
+        stderr(`${packageName} is not installed.`);
         return;
     }
     packagesParent.removeChild(element);
@@ -68,16 +69,16 @@ const uninstall = function(packageName, shouldPrint) {
     });
     localStorage.setItem("packages", newPackageList);
     if (shouldPrint || shouldPrint === undefined)
-        addLine(`${packageName} has been uninstalled.`);
+        stdout(`${packageName} has been uninstalled.`);
 };
 
 const install = function(packageName, shouldPrint) {
     if (!packageName) {
-        addLine("Please include a package name.");
+        stderr("Please include a package name.");
         return;
     }
     if (document.getElementById(packageName)) {
-        addLine(`${packageName} is already installed.`);
+        stderr(`${packageName} is already installed.`);
         return;
     }
     const url = `js/programs/${packageName}.js`;

@@ -44,24 +44,8 @@ document.getElementById("input-text").onkeydown = function (event) {
 };
 
 /*
- * Translates the input into a function call
- * Also shows declared variables
- *//*
-function parse(input) {
-    parts = input.split(" ");
-    let fn = window[parts[0]];
-    if (typeof fn === 'function') {
-        parts.shift();
-        fn(parts);
-    } else if (typeof fn === "string") {
-        addLine(parts[0] + ": " + "'" + fn + "'");
-    } else if (typeof fn === "object") {
-        addLine(parts[0] + ": " + JSON.stringify(fn));
-    } else {
-        addLine(parts[0] + ": command not found");
-    }
-}*/
-
+ * Parses input in a bash-like manner
+ */
 const parse = function(input) {
     const parts = input.split(" ");
     let root = "";
@@ -102,8 +86,8 @@ const parse = function(input) {
                 if (root)
                     execute(root, params);
                 if (readStderr())
-                    writeToView(readStderr());
-                else if (readStdout())
+                    writeToView(`error: ${readStderr()}`);
+                if (readStdout())
                     writeToView(readStdout());
                 params = [];
                 lookingForParams = false;
@@ -130,8 +114,8 @@ const parse = function(input) {
         root = "";
     }
     if (readStderr())
-        writeToView(readStderr());
-    else if (readStdout())
+        writeToView(`error: ${readStderr()}`);
+    if (readStdout())
         writeToView(readStdout());
 }
 
