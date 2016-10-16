@@ -69,10 +69,13 @@ function moveCursorToEnd() {
 
 /*
  * Writes text to view. Supports \n.
+ * Returns array of line indices.
  */
 function writeToView(text) {
     const lines = text.split("\n");
+    let indices = [];
     lines.forEach((line) => {
-        addLine(line);
+        indices.push(addLine(line));
     }, this);
+    return indices;
 }
