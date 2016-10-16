@@ -1,4 +1,4 @@
-function rm(args) {
+{function rm(args) {
     const decider = decide(args);
     const flags = decider.flags;
     const params = decider.args;
@@ -56,4 +56,4 @@ const decide = function(params) {
         flags: flag,
         args: arg
     };
-}
+}}
