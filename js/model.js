@@ -33,9 +33,9 @@ function clearStdin() {
 }
 
 function readStdout() {
-    const stdout = resolveResource("/dev/stdout");
-    if (stdout)
-        return stdout.content;
+    const stdoutFile = resolveResource("/dev/stdout");
+    if (stdoutFile)
+        return stdoutFile.content;
     else return "";
 }
 
@@ -45,13 +45,13 @@ function clearStdout() {
 
 function stdout(goingOut) {
     if (readStdout()) {
-        writeToFile("/dev", "stdout", `${readStdout}\n${goingOut}`);
+        writeToFile("/dev", "stdout", `${readStdout()}\n${goingOut}`);
     } else writeToFile("/dev", "stdout", goingOut);
 }
 
 function stderr(err) {
     if (readStderr()) {
-        writeToFile("/dev", "stderr", `${readStderr}\n${err}`);
+        writeToFile("/dev", "stderr", `${readStderr()}\n${err}`);
     } else writeToFile("/dev", "stderr", err);
 }
 
