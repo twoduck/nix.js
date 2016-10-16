@@ -1,4 +1,7 @@
 function echo(text) {
-    const output = text.join(" ");
-    addLine(output);
+    let output = "";
+    if (text.length !== 0)
+        output = text.join(" ");
+    else output = readStdin();
+    writeStdout(output);
 }

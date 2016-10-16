@@ -6,11 +6,10 @@ function cat(args) {
     }
     const fileName = args[0];
     const file = resolveResource(fileName);
-    if (file) {
-        addLine(file.content);
-        return;
-    } else {
+    if (!file) {
         stderr("File does not exist.");
         addLine("File does not exist.");
+        return;
     }
+    writeStdout(file.content);
 }

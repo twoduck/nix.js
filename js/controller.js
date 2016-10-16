@@ -46,7 +46,7 @@ document.getElementById("input-text").onkeydown = function (event) {
 /*
  * Translates the input into a function call
  * Also shows declared variables
- */
+ *//*
 function parse(input) {
     parts = input.split(" ");
     let fn = window[parts[0]];
@@ -60,6 +60,137 @@ function parse(input) {
     } else {
         addLine(parts[0] + ": command not found");
     }
+}*/
+
+const parse = function(input) {
+    const parts = input.split(" ");
+    let root = "";
+    let params = [];
+    let lookingForParams = false;
+    for (let i = 0; i < parts.length; i++) {
+        const on = parts[i];
+        switch (on) { //Check for special cases that cause execution.
+            case "<":
+                writeFileToStdin(parts[++i]);
+                execute(root, params);
+                params = [];
+                lookingForParams = false;
+                root = "";
+                continue;
+            case "|":
+                execute(root, params);
+                writeStdin(readStdout()); //'pipe' stdout to stdin
+                params = [];
+                lookingForParams = false;
+                root = "";
+                continue;
+            case ">":
+                execute(root, params);
+                overwriteFromStdout(parts[++i]);
+                params = [];
+                lookingForParams = false;
+                root = "";
+                continue;
+            case ">>":
+                execute(root, params);
+                concatFromStdout(parts[++i]);
+                params = [];
+                lookingForParams = false;
+                root = "";
+                continue;
+            case "&&":
+                execute(root, params);
+                params = [];
+                lookingForParams = false;
+                root = "";
+                continue;
+        }
+        if (lookingForParams) { //We are currently looking for parameters. Save this one.
+            params.push(on);
+            continue;
+        }
+        if (root === "") { //We don't have a command right now. Get one.
+            if (typeof window[on] !== "function") { //The next input isn't a function.
+                stderr(`${on} is not a valid command.`);
+                addLine(`${on} is not a valid command.`);
+                return;
+            }
+            root = on;
+            lookingForParams = true;
+            continue;
+        }
+    }
+    if (root) { //We still have a command to do.
+        execute(root, params);
+        lookingForParams = false;
+        root = "";
+    }
+    if (readStderr())
+        addLine(readStderr());
+    else if (readStdout())
+        addLine(readStdout());
+}
+
+/*
+ * Executes a command with given parameters,
+ * if possible.
+ */
+const execute = function(command, params) {
+    writeStdout("");
+    if (!command) {
+        stderr("Cannot execute nothing.");
+        addLine("Cannot execute nothing.");
+        return;
+    }
+    const fn = window[command]
+    if (typeof fn !== "function") {
+        stderr(`${command} is not a function.`);
+        addLine(`${command} is not a function.`);
+        return;
+    }
+    fn(params);
+    writeStdin("");
+}
+
+/*
+ * Writes a file to stdin.
+ */
+const writeFileToStdin = function (location) {
+    const resource = resolveResource(location);
+    if (!resource) {
+        stderr(`${location} cannot be located.`);
+        addLine(`${location} cannot be located.`);
+        return;
+    }
+    if (typeof resource.content !== "string") {
+        stderr(`${location} is not a file.`);
+        addLine(`${location} is not a file.`);
+        return;
+    }
+    writeStdin(resource.content);
+    return resource.content;
+}
+
+/*
+ * Writes stdout to a file, overwriting the file.
+ */
+const overwriteFromStdout = function (location) {
+    write(location, readStdout());
+}
+
+/*
+ * Writes stdout to a file, concatenating the file.
+ */
+const concatFromStdout = function (location) {
+    const resource = resolveResource(location);
+    if (resource) {
+        if (typeof resource.content != "string") {
+            stderr("Cannot write to a folder");
+            addLine("Cannot write to a folder");
+            return;
+        }
+        write(location, `${resource.content}${readStdout()}`);
+    } else write(location, readStdout());
 }
 
 /*

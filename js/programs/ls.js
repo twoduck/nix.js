@@ -1,7 +1,9 @@
 function ls(args) {
+    let results = "";
     Object.keys(directoryIn.content).sort().forEach((element) => {
         if (typeof directoryIn.content[element].content === "object")
-            addLine(`${element}/`);
-        else addLine(element);
+            results += `${element}/ `;
+        else results += `${element} `;
     }, this);
+    writeStdout(results);
 }
