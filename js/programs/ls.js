@@ -5,5 +5,5 @@ function ls(args) {
             results += `${element}/ `;
         else results += `${element} `;
     }, this);
-    writeStdout(results);
+    stdout(results);
 }

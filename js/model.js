@@ -56,9 +56,9 @@ function stderr(err) {
 }
 
 function readStderr() {
-    const stderr = resolveResource("/dev/stderr");
-    if (stderr)
-        return stderr.content;
+    const stderrFile = resolveResource("/dev/stderr");
+    if (stderrFile)
+        return stderrFile.content;
     else return "";
 }
 

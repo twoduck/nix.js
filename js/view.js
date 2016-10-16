@@ -22,6 +22,8 @@ function saveCommand(input) {
  * Does not deal with lines that are too long.
  */
 function addLine(input) {
+    if (typeof input !== "string")
+        return;
     let outputParent = document.getElementById("output");
     let newNode = document.createElement("p");
     const withSpacesFixed = input.replace(/ /g, "&nbsp");
