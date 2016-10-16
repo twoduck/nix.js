@@ -45,6 +45,7 @@ const loadPackages = function() {
         pkg(["install", "job", false]);
         pkg(["install", "cat", false]);
         pkg(["install", "touch", false]);
+        pkg(["install", "rm", false]);
     }
 };
 

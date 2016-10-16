@@ -65,9 +65,10 @@ function write(file, fileContent) {
             addLine("Invalid path given.");
             return;
         }
+        const newParent = (folder.parent === "/") ? `/${folder.name}` : `${folder.parent}/${folder.name}`;
         folder.content[fileName] = {
             name: fileName,
-            parent: `${folder.parent}/${folder.name}`,
+            parent: newParent,
             content: fileContent
         };
     } else { //They just gave us a file name, do a simple write.

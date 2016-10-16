@@ -136,6 +136,7 @@ const parse = function(input) {
  * if possible.
  */
 const execute = function(command, params) {
+    stderr("");
     writeStdout("");
     if (!command) {
         stderr("Cannot execute nothing.");
