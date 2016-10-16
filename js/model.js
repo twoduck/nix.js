@@ -49,6 +49,10 @@ function stdout(goingOut) {
     } else writeToFile("/dev", "stdout", goingOut);
 }
 
+function clearStderr() {
+    writeToFile("/dev", "stderr", "");
+}
+
 function stderr(err) {
     if (readStderr()) {
         writeToFile("/dev", "stderr", `${readStderr()}\n${err}`);

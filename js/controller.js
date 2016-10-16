@@ -89,6 +89,7 @@ const parse = function(input) {
                     writeToView(`error: ${readStderr()}`);
                 if (readStdout())
                     writeToView(readStdout());
+                clearStderr();
                 params = [];
                 lookingForParams = false;
                 root = "";
@@ -117,6 +118,7 @@ const parse = function(input) {
         writeToView(`error: ${readStderr()}`);
     if (readStdout())
         writeToView(readStdout());
+    clearStderr();
 }
 
 /*
