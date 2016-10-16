@@ -8,12 +8,10 @@ function cd(args) {
         updateDirectoryString();
     } else {
         stderr("Directory not found.");
-        addLine("Directory not found.");
         return;
     }
     if (typeof lookedUp.content === "string") {
-        stderr("Not a directory.");
-        addLine(`${args[0]} is not a directory`);
+        stderr(`${args[0]} is not a directory`);
         return;
     }
     return;
