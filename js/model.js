@@ -201,3 +201,8 @@ const concatFromStdout = function (location) {
         write(location, `${resource.content}${readStdout()}`);
     } else write(location, readStdout());
 }
+
+function isInPath(name) {
+    const bin = resolveResource("/bin");
+    return bin.content[name];
+}

@@ -1,4 +1,4 @@
-function clear(args) {
+{function clear(args) {
     document.getElementById("output").innerHTML = "";
     welcome();
-}
+}}

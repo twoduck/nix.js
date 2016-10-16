@@ -1,4 +1,4 @@
-function reset(args) {
+{function reset(args) {
     clear();
     clearStorage();
     clearUsername();
@@ -14,4 +14,4 @@ const clearStorage = function() {
 const clearUsername = function() {
     username = "root";
     updatePrefix();
-};
+};}

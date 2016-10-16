@@ -1,4 +1,4 @@
-function cowsay(args) {
+{function cowsay(args) {
     let text = "";
     if (args.length != 0)
         text = args.join(" ");
@@ -33,4 +33,4 @@ function rightPad(text, length) {
         return text;
     const spaces = " ".repeat(length - text.length);
     return text + spaces;
-}
+}}

@@ -1,4 +1,4 @@
-function mkdir(args) {
+{function mkdir(args) {
     if (args.length < 1)
         return;
     if (args[0].indexOf(".") != -1 || args[0].indexOf("/") != -1 )
@@ -11,4 +11,4 @@ function mkdir(args) {
         parent: newParent,
         content: {}
     };
-}
+}}

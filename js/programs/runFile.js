@@ -1,4 +1,4 @@
-{function run(args) {
+{function runFile(args) {
     const decider = decide(args);
     const flags = decider.flags;
     const params = decider.args;

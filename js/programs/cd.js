@@ -1,4 +1,4 @@
-function cd(args) {
+{function cd(args) {
     if (!args || args.length < 1) {
         return;
     }
@@ -17,4 +17,4 @@ function cd(args) {
         return;
     }
     return;
-}
+}}

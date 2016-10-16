@@ -72,6 +72,9 @@ function moveCursorToEnd() {
  * Returns array of line indices.
  */
 function writeToView(text) {
+    if (!text)
+        return;
+    text = text + "";
     const lines = text.split("\n");
     let indices = [];
     lines.forEach((line) => {

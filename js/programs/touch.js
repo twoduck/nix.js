@@ -1,4 +1,4 @@
-function touch(args) {
+{function touch(args) {
     if (!args || args.length < 1) {
         stderr("No filename/path included");
         return;
@@ -12,4 +12,4 @@ function touch(args) {
         console.log(dir);
         writeToFile(dir, fileName, "");
     }
-}
+}}

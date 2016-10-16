@@ -1,2 +1,2 @@
-function tree(args) {
-}
+{function tree(args) {
+}}

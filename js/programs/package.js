@@ -1,4 +1,4 @@
-var scripts = document.getElementById("scripts");
+{var scripts = document.getElementById("scripts");
 
 function pkg(args) {
     if (!args[0] || args[0] === "help") {
@@ -140,4 +140,4 @@ const addToPackageList = function(name) {
         packageList += `,${name}`;
     }
     localStorage.setItem("packages", packageList);
-};
+};}

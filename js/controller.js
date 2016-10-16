@@ -100,7 +100,7 @@ const parse = function(input) {
             continue;
         }
         if (root === "") { //We don't have a command right now. Get one.
-            if (typeof window[on] !== "function") { //The next input isn't a function.
+            if (typeof window[on] !== "function" && !isInPath(on)) { //The next input isn't a function.
                 addLine(`${on} is not a valid command.`);
                 return;
             }
@@ -133,7 +133,12 @@ const execute = function(command, params) {
         addLine("Cannot execute nothing.");
         return;
     }
-    const fn = window[command]
+    const fn = window[command];
+    const inPath = isInPath(command);
+    if (inPath) {
+        stdout(eval(inPath.content));
+        return;
+    }
     if (typeof fn !== "function") {
         stderr(`${command} is not a function.`);
         addLine(`${command} is not a function.`);

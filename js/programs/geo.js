@@ -1,4 +1,4 @@
-let line;
+{let line;
 
 function geo(args) {
     if (args.length !== 0) {
@@ -41,4 +41,4 @@ const error = function(err) {
     } else {
         changeLine(line, "An unexpected error has occured. Please try again.");
     }
-};
+};}

@@ -1,4 +1,4 @@
-function cat(args) {
+{function cat(args) {
     if (!args || args.length < 1) {
         stderr("No filename/path included");
         return;
@@ -10,4 +10,4 @@ function cat(args) {
         return;
     }
     stdout(file.content);
-}
+}}
