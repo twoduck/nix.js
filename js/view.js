@@ -64,3 +64,13 @@ function moveCursorToEnd() {
     inputBox.selectionStart = inputBox.value.length;
     inputBox.selectionEnd = inputBox.value.length;
 }
+
+/*
+ * Writes text to view. Supports \n.
+ */
+function writeToView(text) {
+    const lines = text.split("\n");
+    lines.forEach((line) => {
+        addLine(line);
+    }, this);
+}

@@ -17,7 +17,7 @@ function updateDirectoryString() {
     updatePrefix();
 }
 
-function readStdin() {
+function stdin() {
     const stdin = resolveResource("/dev/stdin");
     if (stdin)
         return stdin.content;
@@ -28,6 +28,10 @@ function writeStdin(comingIn) {
     writeToFile("/dev", "stdin", comingIn);
 }
 
+function clearStdin() {
+    writeToFile("/dev", "stdin", "");
+}
+
 function readStdout() {
     const stdout = resolveResource("/dev/stdout");
     if (stdout)
@@ -35,12 +39,20 @@ function readStdout() {
     else return "";
 }
 
-function writeStdout(goingOut) {
-    writeToFile("/dev", "stdout", goingOut);
+function clearStdout() {
+    writeToFile("/dev", "stdout", "");
+}
+
+function stdout(goingOut) {
+    if (readStdout()) {
+        writeToFile("/dev", "stdout", `${readStdout}\n${goingOut}`);
+    } else writeToFile("/dev", "stdout", goingOut);
 }
 
 function stderr(err) {
-    writeToFile("/dev", "stderr", err);
+    if (readStderr()) {
+        writeToFile("/dev", "stderr", `${readStderr}\n${err}`);
+    } else writeToFile("/dev", "stderr", err);
 }
 
 function readStderr() {
@@ -142,4 +154,46 @@ function resolveResource(path) {
     if (worked)
         return on;
     else return undefined;
+}
+
+
+/*
+ * Writes a file to stdin.
+ */
+const writeFileToStdin = function (location) {
+    const resource = resolveResource(location);
+    if (!resource) {
+        stderr(`${location} cannot be located.`);
+        addLine(`${location} cannot be located.`);
+        return;
+    }
+    if (typeof resource.content !== "string") {
+        stderr(`${location} is not a file.`);
+        addLine(`${location} is not a file.`);
+        return;
+    }
+    writeStdin(resource.content);
+    return resource.content;
+}
+
+/*
+ * Writes stdout to a file, overwriting the file.
+ */
+const overwriteFromStdout = function (location) {
+    write(location, readStdout());
+}
+
+/*
+ * Writes stdout to a file, concatenating the file.
+ */
+const concatFromStdout = function (location) {
+    const resource = resolveResource(location);
+    if (resource) {
+        if (typeof resource.content != "string") {
+            stderr("Cannot write to a folder");
+            addLine("Cannot write to a folder");
+            return;
+        }
+        write(location, `${resource.content}${readStdout()}`);
+    } else write(location, readStdout());
 }

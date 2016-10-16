@@ -102,9 +102,9 @@ const parse = function(input) {
                 if (root)
                     execute(root, params);
                 if (readStderr())
-                    addLine(readStderr());
+                    writeToView(readStderr());
                 else if (readStdout())
-                    addLine(readStdout());
+                    writeToView(readStdout());
                 params = [];
                 lookingForParams = false;
                 root = "";
@@ -116,7 +116,6 @@ const parse = function(input) {
         }
         if (root === "") { //We don't have a command right now. Get one.
             if (typeof window[on] !== "function") { //The next input isn't a function.
-                stderr(`${on} is not a valid command.`);
                 addLine(`${on} is not a valid command.`);
                 return;
             }
@@ -131,9 +130,9 @@ const parse = function(input) {
         root = "";
     }
     if (readStderr())
-        addLine(readStderr());
+        writeToView(readStderr());
     else if (readStdout())
-        addLine(readStdout());
+        writeToView(readStdout());
 }
 
 /*
@@ -142,7 +141,7 @@ const parse = function(input) {
  */
 const execute = function(command, params) {
     stderr("");
-    writeStdout("");
+    clearStdout();
     if (!command) {
         stderr("Cannot execute nothing.");
         addLine("Cannot execute nothing.");
@@ -155,48 +154,7 @@ const execute = function(command, params) {
         return;
     }
     fn(params);
-    writeStdin("");
-}
-
-/*
- * Writes a file to stdin.
- */
-const writeFileToStdin = function (location) {
-    const resource = resolveResource(location);
-    if (!resource) {
-        stderr(`${location} cannot be located.`);
-        addLine(`${location} cannot be located.`);
-        return;
-    }
-    if (typeof resource.content !== "string") {
-        stderr(`${location} is not a file.`);
-        addLine(`${location} is not a file.`);
-        return;
-    }
-    writeStdin(resource.content);
-    return resource.content;
-}
-
-/*
- * Writes stdout to a file, overwriting the file.
- */
-const overwriteFromStdout = function (location) {
-    write(location, readStdout());
-}
-
-/*
- * Writes stdout to a file, concatenating the file.
- */
-const concatFromStdout = function (location) {
-    const resource = resolveResource(location);
-    if (resource) {
-        if (typeof resource.content != "string") {
-            stderr("Cannot write to a folder");
-            addLine("Cannot write to a folder");
-            return;
-        }
-        write(location, `${resource.content}${readStdout()}`);
-    } else write(location, readStdout());
+    clearStdin();
 }
 
 /*

@@ -1,26 +1,31 @@
 function cowsay(args) {
-    const text = args.join(" ");
+    let text = "";
+    if (args.length != 0)
+        text = args.join(" ");
+    else text = stdin();
     const maxLength = (38 > text.length) ? text.length : 38;
     let on = 0;
-    addLine(` ${"-".repeat(maxLength + 2)} `);
+    let result = "";
+    result += (` ${"-".repeat(maxLength + 2)} \n`);
     while (on < text.length) {
         if (on === 0 && on + maxLength >= text.length) {
-            addLine(`< ${rightPad(text, maxLength)} >`);
+            result += (`< ${rightPad(text, maxLength)} >\n`);
         } else if (on === 0) {
-            addLine(`/ ${rightPad(text.slice(on, on + maxLength), maxLength)} \\`);
+            result += (`/ ${rightPad(text.slice(on, on + maxLength), maxLength)} \\\n`);
         } else if (on + maxLength > text.length) {
-            addLine(`\\ ${rightPad(text.slice(on, on + maxLength), maxLength)} /`);
+            result += (`\\ ${rightPad(text.slice(on, on + maxLength), maxLength)} /\n`);
         } else {
-            addLine(`| ${rightPad(text.slice(on, on + maxLength), maxLength)} |`);
+            result += (`| ${rightPad(text.slice(on, on + maxLength), maxLength)} |\n`);
         }
         on += maxLength;
     }
-    addLine(` ${"-".repeat(maxLength + 2)} `);
-    addLine("         \\   ^__^");
-    addLine("          \\  (oo)\\_______");
-    addLine("             (__)\\       )\\/\\");
-    addLine("                 ||----w |");
-    addLine("                 ||     ||");
+    result += (` ${"-".repeat(maxLength + 2)} \n`);
+    result += ("         \\   ^__^\n");
+    result += ("          \\  (oo)\\_______\n");
+    result += ("             (__)\\       )\\/\\\n");
+    result += ("                 ||----w |\n");
+    result += ("                 ||     ||");
+    stdout(result);
 }
 
 function rightPad(text, length) {
