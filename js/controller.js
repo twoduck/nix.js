@@ -99,7 +99,12 @@ const parse = function(input) {
                 root = "";
                 continue;
             case "&&":
-                execute(root, params);
+                if (root)
+                    execute(root, params);
+                if (readStderr())
+                    addLine(readStderr());
+                else if (readStdout())
+                    addLine(readStdout());
                 params = [];
                 lookingForParams = false;
                 root = "";
