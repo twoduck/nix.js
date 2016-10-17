@@ -9,6 +9,7 @@
     currentFolder.content[directoryTarget] = {
         name: directoryTarget,
         parent: newParent,
+        type: "folder",
         content: {}
     };
 }}

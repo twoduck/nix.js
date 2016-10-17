@@ -3,6 +3,7 @@ var username = "root";
 var fileStructure = {
     name: "",
     parent: "",
+    type: "folder",
     content: {}
 };
 var directoryIn = fileStructure;
@@ -85,6 +86,7 @@ function write(file, fileContent) {
         folder.content[fileName] = {
             name: fileName,
             parent: newParent,
+            type: "file",
             content: fileContent
         };
     } else { //They just gave us a file name, do a simple write.
@@ -97,6 +99,7 @@ function write(file, fileContent) {
         directoryIn.content[file] = {
             name: file,
             parent: `${directoryIn.parent}/${directoryIn.name}`,
+            type: "file",
             content: fileContent
         };
     }
@@ -112,6 +115,7 @@ function writeToFile(path, fileName, fileContent) {
     folder.content[fileName] = {
         name: fileName,
         parent: `${folder.parent}/${folder.name}`,
+        type: "file",
         content: fileContent
     };
 }
