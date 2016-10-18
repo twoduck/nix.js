@@ -155,7 +155,7 @@ const execute = function(command, params) {
     fn(params);*/
 };
 
-const runFile = function(path, file) {
+function runFile(path, file) {
     const resource = resolveResource(path);
     if (!resource || resource.type !== "folder") {
         stderr(`${path}/${file} not found.`);
@@ -168,7 +168,7 @@ const runFile = function(path, file) {
     }
     const content = fileResource.content;
     eval(content);
-};
+}
 
 /*
  * Occurs when the user hit's the tab key

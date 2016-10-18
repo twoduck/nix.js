@@ -108,7 +108,6 @@ function write(file, fileContent) {
 }
 
 function writeToFile(path, fileName, fileContent) {
-    //console.log(path);
     const folder = resolveResource(path);
     if (!folder) {
         stderr("Invalid path provided.");

@@ -1,5 +1,6 @@
 function init() {
     initFiles();
+    installPackageManager();
     loadUsername();
     loadPackages();
     updatePrefix();
@@ -19,6 +20,11 @@ const initFiles = function() {
     updateDirectoryString();
 };
 
+const installPackageManager = function() {
+    const pkgData = getPackageManager();
+    writeToFile("/bin", "pkg.js", pkgData);
+};
+
 const loadUsername = function() {
     if (localStorage.getItem("username")) {
         username = localStorage.getItem("username");
@@ -26,27 +32,26 @@ const loadUsername = function() {
     }
 };
 
-const loadPackages = function() {
+//const loadPackages = function() {
+function loadPackages() {
     const packageList = localStorage.getItem("packages");
     if (packageList) { //The user already has a list of packages
         packageList.split(",").forEach((element) => {
-            pkg(["install", element, false]);
+            writeStdin("install");
+            writeStdin(element);
+            writeStdin("false");
+            runFile("/bin", "pkg.js");
+            clearStdin();
         }, this);
     } else { //The user doesn't have any packages. Set them up with the basics.
-        pkg(["install", "cd", false]);
-        pkg(["install", "clear", false]);
-        pkg(["install", "date", false]);
-        pkg(["install", "echo", false]);
-        pkg(["install", "ls", false]);
-        pkg(["install", "pwd", false]);
-        pkg(["install", "reset", false]);
-        pkg(["install", "setUser", false]);
-        pkg(["install", "tree", false]);
-        pkg(["install", "job", false]);
-        pkg(["install", "cat", false]);
-        pkg(["install", "touch", false]);
-        pkg(["install", "rm", false]);
-        pkg(["install", "mkdir", false]);
+        const defaultList = ["cd", "clear", "echo", "ls", "pwd", "reset", "setUser", "cat", "rm", "mkdir"];
+        defaultList.forEach((element) => {
+            writeStdin("install");
+            writeStdin(element);
+            writeStdin("false");
+            runFile("/bin", "pkg.js");
+            clearStdin();
+        }, this);
     }
 };
 
@@ -60,4 +65,21 @@ const welcome = function() {
 
 window.onload = function() {
     init();
+};
+
+const getPackageManager = function() {
+    const data = document.getElementById("packageManager").import.body.innerHTML;
+    return interpretHTML(data);
+};
+
+const interpretHTML = function(data) {
+    let newData = data;
+    newData = newData.replaceAll(/&gt;/, ">");
+    newData = newData.replaceAll(/&lt;/, "<");
+    return newData;
+};
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, "g"), replacement);
 };
