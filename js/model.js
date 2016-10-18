@@ -74,7 +74,7 @@ function write(file, fileContent) {
         return;
     }
     if (file.indexOf("/") !== -1) { //Those assholes gaves us a path.
-        let path = file.split("/")
+        const path = file.split("/");
         const fileName = path.pop();
         const folder = resolveResource(path.join("/"));
         if (!folder) {
@@ -128,7 +128,7 @@ function resolveResource(path) {
     if (path === "/")
         return fileStructure;
     const start = path.charAt(0);
-    let splitPath = path.split("/");
+    const splitPath = path.split("/");
     let on = directoryIn;
     if (start === "/") {
         on = fileStructure;
@@ -208,5 +208,7 @@ const concatFromStdout = function (location) {
 
 function isInPath(name) {
     const bin = resolveResource("/bin");
-    return bin.content[name];
+    if (bin)
+        return bin.content[name];
+    return undefined;
 }
