@@ -1,4 +1,9 @@
-{function touch(args) {
+(function() {
+    if (!stdin()) {
+        stderr("No file name provided.");
+        return;
+    }
+    const args = stdin().split("\n");
     if (!args || args.length < 1) {
         stderr("No filename/path included");
         return;
@@ -9,7 +14,6 @@
         return;
     } else {
         const dir = (directoryIn.parent === "") ? "/" : (`${directoryIn.parent}/${directoryIn.name}`).substring(1);
-        console.log(dir);
         writeToFile(dir, fileName, "");
     }
-}}
+}());

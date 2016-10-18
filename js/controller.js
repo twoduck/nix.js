@@ -16,14 +16,14 @@ document.onkeydown = function(event) {
  * Controls what happens on each keypress in the input box.
  */
 document.getElementById("input-text").onkeydown = function(event) {
-    var input = document.getElementById("input-text");
+    const input = document.getElementById("input-text");
     input.focus();
     switch (event.keyCode) {
         case 9: //Tab key
             tab();
             break;
         case 13: //Enter key
-            let command = input.value.trim();
+            const command = input.value.trim();
             if (command != "") { //If a command has been entered
                 saveCommand(command); //Add the command to the history.
                 commands[commands.length] = command; //Append the command to the list
@@ -133,19 +133,26 @@ const execute = function(command, params) {
         addLine("Cannot execute nothing.");
         return;
     }
-    const fn = window[command];
-    const inPath = isInPath(command);
-    if (inPath) {
-        eval(inPath.content);
+    let newCommand = command;
+    if (!command.endsWith(".js"))
+        newCommand = `${command}.js`;
+    //const fn = window[command];
+    const inPath = isInPath(newCommand);
+    params.forEach((element) => {
+        writeStdin(element);
+    }, this);
+    if (!inPath) {
+        stderr("Command not found.");
         return;
     }
-    if (typeof fn !== "function") {
+    eval(inPath.content);
+    clearStdin();
+    /*if (typeof fn !== "function") {
         stderr(`${command} is not a function.`);
         addLine(`${command} is not a function.`);
         return;
     }
-    fn(params);
-    clearStdin();
+    fn(params);*/
 };
 
 const runFile = function(path, file) {

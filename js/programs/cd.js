@@ -1,4 +1,9 @@
-{function cd(args) {
+(function() {
+    if (!stdin()) {
+        stderr("No path given.");
+        return;
+    }
+    const args = stdin().split("\n");
     if (!args || args.length < 1) {
         return;
     }
@@ -17,4 +22,4 @@
         return;
     }
     return;
-}}
+}());

@@ -26,7 +26,9 @@ function stdin() {
 }
 
 function writeStdin(comingIn) {
-    writeToFile("/dev", "stdin", comingIn);
+    if (stdin()) {
+        writeToFile("/dev", "stdin", `${stdin()}\n${comingIn}`);
+    } else writeToFile("/dev", "stdin", comingIn);
 }
 
 function clearStdin() {
@@ -106,6 +108,7 @@ function write(file, fileContent) {
 }
 
 function writeToFile(path, fileName, fileContent) {
+    //console.log(path);
     const folder = resolveResource(path);
     if (!folder) {
         stderr("Invalid path provided.");
@@ -208,7 +211,10 @@ const concatFromStdout = function(location) {
 
 function isInPath(name) {
     const bin = resolveResource("/bin");
+    let newName = name;
+    if (!name.endsWith(".js"))
+        newName = `${name}.js`;
     if (bin)
-        return bin.content[name];
+        return bin.content[newName];
     return undefined;
 }

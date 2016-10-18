@@ -1,31 +1,22 @@
 function init() {
+    initFiles();
     loadUsername();
     loadPackages();
-    initFiles();
     updatePrefix();
     welcome();
 }
 
 const initFiles = function() {
-    mkdir(["bin"]);
-    mkdir(["dev"]);
-    mkdir(["etc"]);
-    mkdir(["home"]);
-    mkdir(["root"]);
-    mkdir(["sbin"]);
-    mkdir(["tmp"]);
-    mkdir(["usr"]);
-    mkdir(["var"]);
-    updateDirectoryString();
-
-    /* for testing */
-    const testProgram = `(function() {
-        function kek() {
-            stdout("lol " + stdin() + " lol");
+    const rootDirectories = ["bin", "dev", "etc", "home", "root", "sbin", "tmp", "usr", "var"];
+    rootDirectories.forEach((dir) => {
+        fileStructure.content[dir] = {
+            name: dir,
+            parent: "/",
+            type: "folder",
+            content: {}
         };
-        kek();
-    }());`;
-    writeToFile("/bin", "test.js", testProgram);
+    }, this);
+    updateDirectoryString();
 };
 
 const loadUsername = function() {
@@ -55,6 +46,7 @@ const loadPackages = function() {
         pkg(["install", "cat", false]);
         pkg(["install", "touch", false]);
         pkg(["install", "rm", false]);
+        pkg(["install", "mkdir", false]);
     }
 };
 

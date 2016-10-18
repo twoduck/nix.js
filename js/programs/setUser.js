@@ -1,4 +1,9 @@
-{function setUser(args) {
+(function() {
+    if (!stdin()) {
+        stderr("No username provided.");
+        return;
+    }
+    const args = stdin().split("\n");
     if (args.length === 0) {
         newLine("Please include a username and try again.");
     } else if (args.length !== 1) {
@@ -9,4 +14,4 @@
         localStorage.setItem("username", newName);
         updatePrefix();
     }
-}}
+}());

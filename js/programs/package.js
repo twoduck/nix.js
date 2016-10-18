@@ -84,7 +84,7 @@ const install = function(packageName, shouldPrint) {
     const url = `js/programs/${packageName}.js`;
     getPackage(url, (response) => {
         const newScript = document.createElement("script");
-        newScript.innerHTML = response;
+        //newScript.innerHTML = response;
         writeToFile("/bin", `${packageName}.js`, response);
         newScript.id = packageName;
         newScript.type = "text/javascript";

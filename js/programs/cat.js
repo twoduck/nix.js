@@ -1,4 +1,9 @@
-{function cat(args) {
+(function() {
+    if (!stdin()) {
+        stderr("No filename given.");
+        return;
+    }
+    const args = stdin().split("\n");
     if (!args || args.length < 1) {
         stderr("No filename/path included");
         return;
@@ -10,4 +15,4 @@
         return;
     }
     stdout(file.content);
-}}
+}());

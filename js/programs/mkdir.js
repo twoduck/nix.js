@@ -1,4 +1,9 @@
-{function mkdir(args) {
+(function() {
+    if (!stdin()) {
+        stderr("No path given.");
+        return;
+    }
+    const args = stdin().split("");
     if (args.length < 1)
         return;
     if (args[0].indexOf(".") != -1 || args[0].indexOf("/") != -1 )
@@ -12,4 +17,4 @@
         type: "folder",
         content: {}
     };
-}}
+}());
