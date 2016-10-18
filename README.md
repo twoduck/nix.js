@@ -1,12 +1,12 @@
-## JS Terminal
+## nix.js
 
-A JS terminal emulator, in your browser. Created by [Michael Bilstein](https://github.com/Meegul304) and [Scott Mangiapane](https://github.com/scottmangiapane). It currently supports a limited range of commands, but more are coming soon!
+A JavaScript virtual operating system, in your browser. Created by [Michael Bilstein](https://github.com/Meegul304) and [Scott Mangiapane](https://github.com/scottmangiapane). It currently supports a limited range of commands, but more are coming soon!
 
 ## Demo
 
-https://scottmangiapane.github.io/js-terminal/
+https://twoduck.github.io/nix.js
 
-## How to write programs for js-term
+## How to write programs for nix.js
 
 - You should have only one user-facing function, with all helper functions scope restricted.
   - Your primary function should be declared like: `function myFunction(args)`
@@ -45,5 +45,5 @@ const getDate = function() {
 ```
 
 
-## Submitting a package to js-term
+## Submitting a package to nix.js
 In order to submit a package to be added to the repository, just make a pull request with your package in the js/programs folder. We will review your package and merge if it follows the guidelines provided.
