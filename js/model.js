@@ -117,7 +117,7 @@ function writeToFile(path, fileName, fileContent) {
     const newParent = (folder.parent === "/") ? `/${folder.name}` : `${folder.parent}/${folder.name}`;
     folder.content[fileName] = {
         name: fileName,
-        parent: `${folder.parent}/${folder.name}`,
+        parent: newParent,
         type: "file",
         content: fileContent
     };
@@ -217,4 +217,20 @@ function isInPath(name) {
     if (bin)
         return bin.content[newName];
     return undefined;
+}
+
+function decide(params) {
+    const flag = [];
+    const arg = [];
+    params.forEach((element) => {
+        if (element.indexOf("-") === 0) {
+            flag.push(element);
+        } else {
+            arg.push(element);
+        }
+    }, this);
+    return {
+        flags: flag,
+        args: arg
+    };
 }

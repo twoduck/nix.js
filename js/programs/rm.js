@@ -1,4 +1,9 @@
-{function rm(args) {
+(function() {
+    if (!stdin()) {
+        stderr("No files given to delete.");
+        return;
+    }
+    const args = stdin().split("\n");
     const decider = decide(args);
     const flags = decider.flags;
     const params = decider.args;
@@ -33,27 +38,11 @@
             stderr(`${element} could not be found.`);
             return;
         }
-        if (typeof resource.content === "object" && !recurse) {
+        if (typeof resource.type === "folder" && !recurse) {
             stderr(`${element} is a folder. Use -r to delete folders.`);
             return;
         }
         const parent = resolveResource(resource.parent);
         delete parent.content[resource.name];
     }, this);
-}
-
-const decide = function(params) {
-    let flag = [];
-    let arg = [];
-    params.forEach((element) => {
-        if (element.indexOf("-") === 0) {
-            flag.push(element);
-        } else {
-            arg.push(element);
-        }
-    }, this);
-    return {
-        flags: flag,
-        args: arg
-    };
-}}
+}());
