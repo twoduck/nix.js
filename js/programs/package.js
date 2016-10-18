@@ -1,4 +1,4 @@
-{var scripts = document.getElementById("scripts");
+var scripts = document.getElementById("scripts");
 
 function pkg(args) {
     if (!args[0] || args[0] === "help") {
@@ -85,6 +85,7 @@ const install = function(packageName, shouldPrint) {
     getPackage(url, (response) => {
         const newScript = document.createElement("script");
         newScript.innerHTML = response;
+        writeToFile("/bin", `${packageName}.js`, response);
         newScript.id = packageName;
         newScript.type = "text/javascript";
         scripts.appendChild(newScript);
@@ -140,4 +141,4 @@ const addToPackageList = function(name) {
         packageList += `,${name}`;
     }
     localStorage.setItem("packages", packageList);
-};}
+};

@@ -5,17 +5,17 @@ var lastKeyCode = 0;
 /*
  * Ensures that the user is always focused on the input text.
  */
-document.onkeydown = function (event) {
+document.onkeydown = function(event) {
     if (event.keyCode != 91 && event.keyCode != 17 && !(
         event.keyCode == 67 && (lastKeyCode === 91 || lastKeyCode === 17)))
         document.getElementById("input-text").focus();
     lastKeyCode = event.keyCode;
-}
+};
 
 /*
  * Controls what happens on each keypress in the input box.
  */
-document.getElementById("input-text").onkeydown = function (event) {
+document.getElementById("input-text").onkeydown = function(event) {
     var input = document.getElementById("input-text");
     input.focus();
     switch (event.keyCode) {
@@ -136,7 +136,7 @@ const execute = function(command, params) {
     const fn = window[command];
     const inPath = isInPath(command);
     if (inPath) {
-        stdout(eval(inPath.content));
+        eval(inPath.content);
         return;
     }
     if (typeof fn !== "function") {
@@ -146,7 +146,22 @@ const execute = function(command, params) {
     }
     fn(params);
     clearStdin();
-}
+};
+
+const runFile = function(path, file) {
+    const resource = resolveResource(path);
+    if (!resource || resource.type !== "folder") {
+        stderr(`${path}/${file} not found.`);
+        return;
+    }
+    const fileResource = resource.content[file];
+    if (!fileResource || fileResource.type !== "file") {
+        stderr(`${path}/${file} not found.`);
+        return;
+    }
+    const content = fileResource.content;
+    eval(content);
+};
 
 /*
  * Occurs when the user hit's the tab key

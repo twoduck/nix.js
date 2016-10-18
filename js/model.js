@@ -168,7 +168,7 @@ function resolveResource(path) {
 /*
  * Writes a file to stdin.
  */
-const writeFileToStdin = function (location) {
+const writeFileToStdin = function(location) {
     const resource = resolveResource(location);
     if (!resource) {
         stderr(`${location} cannot be located.`);
@@ -182,19 +182,19 @@ const writeFileToStdin = function (location) {
     }
     writeStdin(resource.content);
     return resource.content;
-}
+};
 
 /*
  * Writes stdout to a file, overwriting the file.
  */
-const overwriteFromStdout = function (location) {
+const overwriteFromStdout = function(location) {
     write(location, readStdout());
-}
+};
 
 /*
  * Writes stdout to a file, concatenating the file.
  */
-const concatFromStdout = function (location) {
+const concatFromStdout = function(location) {
     const resource = resolveResource(location);
     if (resource) {
         if (typeof resource.content != "string") {
@@ -204,7 +204,7 @@ const concatFromStdout = function (location) {
         }
         write(location, `${resource.content}${readStdout()}`);
     } else write(location, readStdout());
-}
+};
 
 function isInPath(name) {
     const bin = resolveResource("/bin");

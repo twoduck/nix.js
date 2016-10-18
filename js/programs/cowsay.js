@@ -1,8 +1,12 @@
-{function cowsay(args) {
-    let text = "";
-    if (args.length != 0)
-        text = args.join(" ");
-    else text = stdin();
+(function() {
+    function rightPad(text, length) {
+        if (text.length >= length)
+            return text;
+        const spaces = " ".repeat(length - text.length);
+        return text + spaces;
+    }
+    
+    const text = stdin();
     const maxLength = (38 > text.length) ? text.length : 38;
     let on = 0;
     let result = "";
@@ -26,11 +30,4 @@
     result += ("                 ||----w |\n");
     result += ("                 ||     ||");
     stdout(result);
-}
-
-function rightPad(text, length) {
-    if (text.length >= length)
-        return text;
-    const spaces = " ".repeat(length - text.length);
-    return text + spaces;
-}}
+}());

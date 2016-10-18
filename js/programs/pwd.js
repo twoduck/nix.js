@@ -1,4 +1,4 @@
-{function pwd(args) {
+(function() {
     updateDirectoryString();
     stdout(directoryString);
-}}
+}());

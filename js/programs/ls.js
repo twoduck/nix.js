@@ -1,4 +1,4 @@
-{function ls(args) {
+(function() {
     let results = "";
     Object.keys(directoryIn.content).sort().forEach((element) => {
         if (typeof directoryIn.content[element].content === "object")
@@ -6,4 +6,4 @@
         else results += `${element} `;
     }, this);
     stdout(results);
-}}
+}());

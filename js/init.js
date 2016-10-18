@@ -17,6 +17,15 @@ const initFiles = function() {
     mkdir(["usr"]);
     mkdir(["var"]);
     updateDirectoryString();
+
+    /* for testing */
+    const testProgram = `(function() {
+        function kek() {
+            stdout("lol " + stdin() + " lol");
+        };
+        kek();
+    }());`;
+    writeToFile("/bin", "test.js", testProgram);
 };
 
 const loadUsername = function() {
