@@ -8,16 +8,23 @@ function init() {
 }
 
 const initFiles = function() {
-    const rootDirectories = ["bin", "dev", "etc", "home", "root", "sbin", "tmp", "usr", "var"];
-    rootDirectories.forEach((dir) => {
-        fileStructure.content[dir] = {
-            name: dir,
-            parent: "/",
-            type: "folder",
-            content: {}
-        };
-    }, this);
-    updateDirectoryString();
+    const savedFileSystem = localStorage.getItem("fileStructure");
+    if (savedFileSystem) { //Restore the user's files.
+        const newFileStructure = JSON.parse(savedFileSystem);
+        fileStructure = newFileStructure;
+        directoryIn = fileStructure;
+    } else { //Give the user the defaults.
+        const rootDirectories = ["bin", "dev", "etc", "home", "root", "sbin", "tmp", "usr", "var"];
+        rootDirectories.forEach((dir) => {
+            fileStructure.content[dir] = {
+                name: dir,
+                parent: "/",
+                type: "folder",
+                content: {}
+            };
+        }, this);
+        updateDirectoryString();
+    }
 };
 
 const installPackageManager = function() {
@@ -37,11 +44,13 @@ function loadPackages() {
     const packageList = localStorage.getItem("packages");
     if (packageList) { //The user already has a list of packages
         packageList.split(",").forEach((element) => {
-            writeStdin("install");
-            writeStdin(element);
-            writeStdin("false");
-            runFile("/bin", "pkg.js");
-            clearStdin();
+            if (!resolveResource(`${element}.js`)) { //Make sure we don't install over files.
+                writeStdin("install");
+                writeStdin(element);
+                writeStdin("false");
+                runFile("/bin", "pkg.js");
+                clearStdin();
+            }
         }, this);
     } else { //The user doesn't have any packages. Set them up with the basics.
         const defaultList = ["cd", "clear", "echo", "ls", "pwd", "reset", "setUser", "cat", "rm", "mkdir"];

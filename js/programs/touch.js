@@ -8,12 +8,15 @@
         stderr("No filename/path included");
         return;
     }
-    const fileName = args[0];
+    let path = args[0].split("/");
+    const fileName = path.pop();
+    path = path.join("/");
+    if (!path)
+        path = ".";
     if (resolveResource(fileName)) {
         stderr("File already exists.");
         return;
     } else {
-        const dir = (directoryIn.parent === "") ? "/" : (`${directoryIn.parent}/${directoryIn.name}`).substring(1);
-        writeToFile(dir, fileName, "");
+        writeToFile(path, fileName, "");
     }
 }());

@@ -3,7 +3,7 @@
         stderr("No path given.");
         return;
     }
-    const args = stdin().split("");
+    const args = stdin().split("\n");
     if (args.length < 1)
         return;
     if (args[0].indexOf(".") != -1 || args[0].indexOf("/") != -1 )

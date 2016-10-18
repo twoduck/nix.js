@@ -45,6 +45,8 @@
             else return total;
         });
         localStorage.setItem("packages", newPackageList);
+        const bin = resolveResource("/bin");
+        delete bin.content[`${packageName}.js`];
         if (shouldPrint || shouldPrint === undefined)
             stdout(`${packageName} has been uninstalled.`);
     };
