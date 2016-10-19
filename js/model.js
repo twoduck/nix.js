@@ -18,57 +18,6 @@ function updateDirectoryString() {
     updatePrefix();
 }
 
-function stdin() {
-    const stdin = resolveResource("/dev/stdin");
-    if (stdin)
-        return stdin.content;
-    else return "";
-}
-
-function writeStdin(comingIn) {
-    if (stdin()) {
-        writeToFile("/dev", "stdin", `${stdin()}\n${comingIn}`);
-    } else writeToFile("/dev", "stdin", comingIn);
-}
-
-function clearStdin() {
-    writeToFile("/dev", "stdin", "");
-}
-
-function readStdout() {
-    const stdoutFile = resolveResource("/dev/stdout");
-    if (stdoutFile)
-        return stdoutFile.content;
-    else return "";
-}
-
-function clearStdout() {
-    writeToFile("/dev", "stdout", "");
-}
-
-function stdout(goingOut) {
-    if (readStdout()) {
-        writeToFile("/dev", "stdout", `${readStdout()}\n${goingOut}`);
-    } else writeToFile("/dev", "stdout", goingOut);
-}
-
-function clearStderr() {
-    writeToFile("/dev", "stderr", "");
-}
-
-function stderr(err) {
-    if (readStderr()) {
-        writeToFile("/dev", "stderr", `${readStderr()}\n${err}`);
-    } else writeToFile("/dev", "stderr", err);
-}
-
-function readStderr() {
-    const stderrFile = resolveResource("/dev/stderr");
-    if (stderrFile)
-        return stderrFile.content;
-    else return "";
-}
-
 function write(file, fileContent) {
     if (!file) {
         stderr("No path provided.");
