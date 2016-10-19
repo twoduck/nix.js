@@ -153,11 +153,6 @@ const execute = function(command, params) {
         return;
     }
     const response = eval(inPath.content);
-    if (response === "done")
-        waiting = false;
-    while (waiting) {
-        //Do nothing.
-    }
     clearStdin();
 };
 
