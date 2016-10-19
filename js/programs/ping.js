@@ -32,7 +32,8 @@
     const domain = stdin();
 
     ping(domain, 80, function(time) {
-        addLine(`It took ${time} milliseconds to reach ${domain}.`);
+        addLine(`${time}ms`);
+        stdout(`${domain}:${time}ms`)
     });
 
 }())
