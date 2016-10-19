@@ -1,4 +1,5 @@
 (function() {
     const output = stdin();
-    stdout(output);
+    const text = output.split("\n").join(" ");
+    stdout(text);
 }());

@@ -6,7 +6,8 @@
         return text + spaces;
     }
     
-    const text = stdin();
+    const input = stdin();
+    const text = input.split("\n").join(" ");
     const maxLength = (38 > text.length) ? text.length : 38;
     let on = 0;
     let result = "";
