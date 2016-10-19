@@ -30,7 +30,6 @@
         "no-iterator": "error",
         "no-restricted-syntax": "error",
         "one-var": ["error", "never"],
-        "no-case-declarations": "error",
         "no-nested-ternary": "error",
         "no-unneeded-ternary": "error",
         "brace-style": "error",
