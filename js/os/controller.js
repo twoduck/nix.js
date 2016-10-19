@@ -19,27 +19,31 @@ document.getElementById("input-text").onkeydown = function(event) {
     const input = document.getElementById("input-text");
     input.focus();
     switch (event.keyCode) {
-        case 9: //Tab key
-            tab();
-            break;
-        case 13: //Enter key
-            const command = input.value.trim();
-            if (command != "") { //If a command has been entered
-                saveCommand(command); //Add the command to the history.
-                commands[commands.length] = command; //Append the command to the list
-                commandIndex = commands.length;
-                parse(command);
-                input.value = ""; //reset the input
-            }
-            break;
-        case 38: //Up arrow key
-            moveCursorToEnd();
-            upKey();
-            break;
-        case 40: //Down arrow key
-            moveCursorToEnd();
-            downKey();
-            break;
+    case 9: //Tab key
+        tab();
+        break;
+    case 13: //Enter key
+        const command = input.value.trim();
+        if (command != "") { //If a command has been entered
+            saveCommand(command); //Add the command to the history.
+            commands[commands.length] = command; //Append the command to the list
+            commandIndex = commands.length;
+            parse(command);
+            input.value = ""; //reset the input
+        }
+        break;
+    case 38: //Up arrow key
+        moveCursorToEnd();
+        upKey();
+        break;
+    case 40: //Down arrow key
+        moveCursorToEnd();
+        downKey();
+        break;
+    case 67: //c key
+        if (lastKeyCode === 17) //They just pressed ctrl
+            waiting = false;
+        break;
     }
 };
 
@@ -54,46 +58,46 @@ const parse = function(input) {
     for (let i = 0; i < parts.length; i++) {
         const on = parts[i];
         switch (on) { //Check for special cases that cause execution.
-            case "<":
-                writeFileToStdin(parts[++i]);
+        case "<":
+            writeFileToStdin(parts[++i]);
+            execute(root, params);
+            params = [];
+            lookingForParams = false;
+            root = "";
+            continue;
+        case "|":
+            execute(root, params);
+            writeStdin(readStdout()); //'pipe' stdout to stdin
+            params = [];
+            lookingForParams = false;
+            root = "";
+            continue;
+        case ">":
+            execute(root, params);
+            overwriteFromStdout(parts[++i]);
+            params = [];
+            lookingForParams = false;
+            root = "";
+            continue;
+        case ">>":
+            execute(root, params);
+            concatFromStdout(parts[++i]);
+            params = [];
+            lookingForParams = false;
+            root = "";
+            continue;
+        case "&&":
+            if (root)
                 execute(root, params);
-                params = [];
-                lookingForParams = false;
-                root = "";
-                continue;
-            case "|":
-                execute(root, params);
-                writeStdin(readStdout()); //'pipe' stdout to stdin
-                params = [];
-                lookingForParams = false;
-                root = "";
-                continue;
-            case ">":
-                execute(root, params);
-                overwriteFromStdout(parts[++i]);
-                params = [];
-                lookingForParams = false;
-                root = "";
-                continue;
-            case ">>":
-                execute(root, params);
-                concatFromStdout(parts[++i]);
-                params = [];
-                lookingForParams = false;
-                root = "";
-                continue;
-            case "&&":
-                if (root)
-                    execute(root, params);
-                if (readStderr())
-                    writeToView(`error: ${readStderr()}`);
-                if (readStdout())
-                    writeToView(readStdout());
-                clearStderr();
-                params = [];
-                lookingForParams = false;
-                root = "";
-                continue;
+            if (readStderr())
+                writeToView(`error: ${readStderr()}`);
+            if (readStdout())
+                writeToView(readStdout());
+            clearStderr();
+            params = [];
+            lookingForParams = false;
+            root = "";
+            continue;
         }
         if (lookingForParams) { //We are currently looking for parameters. Save this one.
             params.push(on);
@@ -119,18 +123,20 @@ const parse = function(input) {
     if (readStdout())
         writeToView(readStdout());
     clearStderr();
-}
+};
 
 /*
  * Executes a command with given parameters,
  * if possible.
  */
 const execute = function(command, params) {
+    waiting = true;
     stderr("");
     clearStdout();
     if (!command) {
         stderr("Cannot execute nothing.");
         addLine("Cannot execute nothing.");
+        waiting = false;
         return;
     }
     let newCommand = command;
@@ -143,16 +149,16 @@ const execute = function(command, params) {
     }, this);
     if (!inPath) {
         stderr("Command not found.");
+        waiting = false;
         return;
     }
-    eval(inPath.content);
+    const response = eval(inPath.content);
+    if (response === "done")
+        waiting = false;
+    while (waiting) {
+        //Do nothing.
+    }
     clearStdin();
-    /*if (typeof fn !== "function") {
-        stderr(`${command} is not a function.`);
-        addLine(`${command} is not a function.`);
-        return;
-    }
-    fn(params);*/
 };
 
 function runFile(path, file) {
@@ -188,14 +194,14 @@ function tab() {
  */
 document.getElementById("input-text").onkeyup = function(event) {
     switch (event.keyCode) {
-        case 38:
-            moveCursorToEnd();
-            break;
-        case 40:
-            moveCursorToEnd();
-            break;
+    case 38:
+        moveCursorToEnd();
+        break;
+    case 40:
+        moveCursorToEnd();
+        break;
     }
-}
+};
 
 /*
  * Occurs when the user hit's the up arrow
@@ -205,7 +211,7 @@ function upKey() {
     if (commandIndex > 0) {
         if (commandIndex === commands.length)
             notYetEntered = document.getElementById("input-text").value;
-        let command = commands[--commandIndex];
+        const command = commands[--commandIndex];
         changeInputText(command);
     }
 }
@@ -216,7 +222,7 @@ function upKey() {
  */
 function downKey() {
     if (commandIndex < commands.length - 1) {
-        let command = commands[++commandIndex];
+        const command = commands[++commandIndex];
         changeInputText(command);
     } else if (commandIndex === commands.length - 1) {
         commandIndex++;
