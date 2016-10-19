@@ -5,7 +5,7 @@
 
         var http = new XMLHttpRequest();
 
-        http.open("GET", "http://" + host + ":" + port, /*async*/true);
+        http.open("GET", "https://" + host + ":" + port, /*async*/true);
         http.onreadystatechange = function() {
             if (http.readyState == 4) {
             var ended = new Date().getTime();
