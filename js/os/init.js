@@ -66,7 +66,7 @@ function loadPackages() {
 
 const welcome = function() {
     const welcomeText = `
-Nix.js is an OS for your browser, similar to UNIX and written entirely in JavaScript. It has a virtual file system, a package manager for installing additional functions, and a command line interface.
+Nix.js is an OS for your browser, similar to UNIX (But totally not POSIX compliant) and written entirely in JavaScript. It has a virtual file system, a package manager for installing additional functions, and a command line interface.
 
 To get started, type 'setUser' to change your username or type 'pkg' available' for a list of commands available for use or install. More packages can be added dynamically with the 'pkg install' command.
 `;
