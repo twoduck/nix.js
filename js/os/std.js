@@ -34,6 +34,8 @@ function stdout(goingOut) {
 }
 
 function writeStdout(goingOut) {
+    if (!goingOut) //nothing was passed, skip it.
+        return;
     if (readStdout()) {
         writeToFile("/dev", "stdout", `${readStdout()}\n${goingOut}`);
     } else writeToFile("/dev", "stdout", goingOut);
