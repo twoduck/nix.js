@@ -65,11 +65,12 @@ function loadPackages() {
 };
 
 const welcome = function() {
-    addLine("");
-    addLine("JS Terminal is an OS for your browser, similar to UNIX and written entirely in JavaScript. It has a virtual file system, a package manager for installing additional functions, and a command prompt interface.");
-    addLine("");
-    addLine("To get started, type 'setUser' to change your username or type 'pkg list' for a list of available commands. More packages can be added dynamically with the 'pkg install' command.");
-    addLine("");
+    const welcomeText = `
+Nix.js is an OS for your browser, similar to UNIX and written entirely in JavaScript. It has a virtual file system, a package manager for installing additional functions, and a command line interface.
+
+To get started, type 'setUser' to change your username or type 'pkg' available' for a list of commands available for use or install. More packages can be added dynamically with the 'pkg install' command.
+`;
+    writeToView(welcomeText);
 };
 
 window.onload = function() {

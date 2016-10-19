@@ -54,7 +54,7 @@ function changeLine(index, text) {
  * Changes the input text box
  */
 function changeInputText(text) {
-    let inputBox = document.getElementById("input-text");
+    const inputBox = document.getElementById("input-text");
     inputBox.value = text;
 }
 
@@ -62,7 +62,7 @@ function changeInputText(text) {
  * Moves cursor to end of input box
  */
 function moveCursorToEnd() {
-    let inputBox = document.getElementById("input-text");
+    const inputBox = document.getElementById("input-text");
     inputBox.selectionStart = inputBox.value.length;
     inputBox.selectionEnd = inputBox.value.length;
 }
@@ -71,12 +71,12 @@ function moveCursorToEnd() {
  * Writes text to view. Supports \n.
  * Returns array of line indices.
  */
-function writeToView(text) {
-    if (!text)
+function writeToView(input) {
+    if (!input)
         return;
-    text = text + "";
+    const text = `${input}`;
     const lines = text.split("\n");
-    let indices = [];
+    const indices = [];
     lines.forEach((line) => {
         indices.push(addLine(line));
     }, this);
