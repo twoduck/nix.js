@@ -30,7 +30,20 @@
                 stderr(`${element} is the root directory. Use -f to delete it.`);
                 return;
             }
-            reset();
+            const clearStorage = function() {
+                Object.keys(localStorage).forEach((element) => {
+                    localStorage.removeItem(element);
+                }, this);
+            };
+
+            const clearUsername = function() {
+                username = "root";
+                updatePrefix();
+            };
+            
+            clearStorage();
+            clearUsername();
+            window.location.reload();
             return;
         }
         const resource = resolveResource(element);
@@ -38,7 +51,7 @@
             stderr(`${element} could not be found.`);
             return;
         }
-        if (typeof resource.type === "folder" && !recurse) {
+        if (resource.type === "folder" && !recurse) {
             stderr(`${element} is a folder. Use -r to delete folders.`);
             return;
         }
