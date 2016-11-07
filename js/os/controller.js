@@ -130,28 +130,28 @@ const parse = function(input) {
  * if possible.
  */
 const execute = function(command, params) {
-    waiting = true;
     stderr("");
     clearStdout();
     if (!command) {
         stderr("Cannot execute nothing.");
         addLine("Cannot execute nothing.");
-        waiting = false;
         return;
     }
     let newCommand = command;
     if (!command.endsWith(".js"))
         newCommand = `${command}.js`;
-    //const fn = window[command];
     const inPath = isInPath(newCommand);
+    if (!inPath) {
+        stderr("Command not found.");
+        return;
+    }
+    writeStdin(params.join(" "));
+    /*
+     * Deprecated. Now joins with " ", not "\n"
     params.forEach((element) => {
         writeStdin(element);
     }, this);
-    if (!inPath) {
-        stderr("Command not found.");
-        waiting = false;
-        return;
-    }
+    */
     const response = eval(inPath.content);
     clearStdin();
 };
