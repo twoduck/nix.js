@@ -10,11 +10,10 @@ function init() {
 const initFiles = function() {
     const savedFileSystem = localStorage.getItem("fileStructure");
     if (savedFileSystem) { //Restore the user's files.
-        const newFileStructure = JSON.parse(savedFileSystem);
-        fileStructure = newFileStructure;
+        fileStructure = JSON.parse(savedFileSystem);
         directoryIn = fileStructure;
     } else { //Give the user the defaults.
-        const rootDirectories = ["bin", "dev", "etc", "home", "root", "sbin", "tmp", "usr", "var"];
+        const rootDirectories = ["bin", "dev", "home", "tmp", "var"];
         rootDirectories.forEach((dir) => {
             fileStructure.content[dir] = {
                 name: dir,
@@ -27,9 +26,16 @@ const initFiles = function() {
     }
 };
 
+const decode = function(data) {
+    let newData = data;
+    newData = newData.replaceAll(/&gt;/, ">");
+    newData = newData.replaceAll(/&lt;/, "<");
+    return newData;
+};
+
 const installPackageManager = function() {
-    const pkgData = getPackageManager();
-    writeToFile("/bin", "pkg.js", pkgData);
+    const code = decode(document.getElementById("packageManager").import.body.innerHTML);
+    writeToFile("/bin", "pkg.js", code);
 };
 
 const loadUsername = function() {
@@ -39,7 +45,7 @@ const loadUsername = function() {
     }
 };
 
-//const loadPackages = function() {
+
 function loadPackages() {
     const packageList = localStorage.getItem("packages");
     if (packageList) { //The user already has a list of packages
@@ -53,11 +59,9 @@ function loadPackages() {
             }
         }, this);
     } else { //The user doesn't have any packages. Set them up with the basics.
-        const defaultList = ["cd", "clear", "echo", "ls", "pwd", "reset", "setUser", "cat", "rm", "mkdir"];
+        const defaultList = ["cd", "clear", "echo", "ls", "pwd", "reset", "setUser", "cat", "rm", "mkdir", "save"];
         defaultList.forEach((element) => {
-            writeStdin("install");
-            writeStdin(element);
-            writeStdin("false");
+            writeStdin(`install ${element} false`);
             runFile("/bin", "pkg.js");
             clearStdin();
         }, this);
@@ -73,23 +77,9 @@ To get started, type 'setUser' to change your username or type 'pkg' available' 
     writeToView(welcomeText);
 };
 
-window.onload = function() {
-    init();
-};
-
-const getPackageManager = function() {
-    const data = document.getElementById("packageManager").import.body.innerHTML;
-    return interpretHTML(data);
-};
-
-const interpretHTML = function(data) {
-    let newData = data;
-    newData = newData.replaceAll(/&gt;/, ">");
-    newData = newData.replaceAll(/&lt;/, "<");
-    return newData;
-};
-
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
     return target.replace(new RegExp(search, "g"), replacement);
 };
+
+window.onload = init;

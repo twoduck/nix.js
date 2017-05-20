@@ -117,7 +117,6 @@
         return;
     }
     const args = stdin().split(" ");
-    console.log(args);
     if (!args[0] || args[0] === "help") {
         help();
     } else if (args[0] === "install") {

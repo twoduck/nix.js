@@ -125,6 +125,21 @@ const parse = function(input) {
     clearStderr();
 };
 
+function runFile(path, file) {
+    const resource = resolveResource(path);
+    if (!resource || resource.type !== "folder") {
+        stderr(`${path}/${file} not found.`);
+        return;
+    }
+    const fileResource = resource.content[file];
+    if (!fileResource || fileResource.type !== "file") {
+        stderr(`${path}/${file} not found.`);
+        return;
+    }
+    const content = fileResource.content;
+    eval(content);
+}
+
 /*
  * Executes a command with given parameters,
  * if possible.
@@ -146,13 +161,10 @@ const execute = function(command, params) {
         return;
     }
     writeStdin(params.join(" "));
-    /*
-     * Deprecated. Now joins with " ", not "\n"
-    params.forEach((element) => {
-        writeStdin(element);
-    }, this);
-    */
     const response = eval(inPath.content);
+    clearStdin();
+    writeStdin("-q");
+    runFile("/bin", "save.js");
     clearStdin();
 };
 
